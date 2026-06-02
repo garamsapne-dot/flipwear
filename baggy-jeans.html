@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baggy Jeans Collection - MENS WEAR</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background-color: #f1f3f6; color: #212121; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; background: #2874f0; padding: 12px 8%; box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+        .logo { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 800; color: #ffffff; letter-spacing: 1px; text-decoration: none; }
+        .logo span { color: #ffe500; }
+        .back-btn { color: white; text-decoration: none; font-size: 14px; font-weight: 600; background: rgba(255,255,255,0.1); padding: 8px 15px; border-radius: 4px; }
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .title-section { margin-bottom: 25px; border-bottom: 1px solid #e0e0e0; padding-bottom: 15px; display: flex; justify-content: space-between; align-items: flex-end; }
+        .page-title { font-size: 22px; font-weight: 700; color: #212121; }
+        .item-count { color: #878787; font-size: 14px; margin-top: 4px; }
+        .admin-link { font-size: 14px; color: #2874f0; text-decoration: none; font-weight: 600; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; }
+        .product-card { background: #ffffff; border-radius: 8px; overflow: hidden; transition: 0.3s; cursor: pointer; border: 1px solid #e0e0e0; display: flex; flex-direction: column; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); border-color: #2874f0; }
+        .img-box { position: relative; height: 280px; background: #f9f9f9; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .wishlist-icon { position: absolute; top: 12px; right: 12px; background: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-size: 16px; }
+        .product-info { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .brand { font-size: 12px; font-weight: 700; color: #878787; text-transform: uppercase; }
+        .name { font-size: 14px; color: #212121; margin: 5px 0 8px 0; font-weight: 500; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .rating { background: #388e3c; color: white; font-size: 12px; padding: 2px 6px; border-radius: 3px; font-weight: 600; display: inline-block; margin-bottom: 8px; }
+        .price-container { display: flex; align-items: center; }
+        .price { font-size: 16px; font-weight: 700; color: #212121; }
+        .mrp { font-size: 13px; color: #878787; text-decoration: line-through; margin-left: 8px; }
+        .discount { font-size: 13px; color: #388e3c; font-weight: 600; margin-left: 8px; }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <a href="homepage.html" class="logo">MENS<span>WEAR</span></a>
+        <a href="jeans-category.html" class="back-btn">← Back</a>
+    </div>
+
+    <div class="container">
+        <div class="title-section">
+            <div>
+                <h1 class="page-title">Baggy Jeans Collection</h1>
+                <div class="item-count" id="totalCountText">Loading products...</div>
+            </div>
+            <a href="admin.html" class="admin-link">+ Upload New Product</a>
+        </div>
+
+        <div class="products-grid" id="jeansGrid">
+            </div>
+    </div>
+
+    <script>
+        // Static items array inside the safe zone
+        const staticProducts = [
+            { id: 'st_1', img: 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=400&q=80', brand: 'DENIM LAB', name: 'Men Light Blue Vintage Loose Fit Baggy Jeans', price: '1299' },
+            { id: 'st_2', img: 'https://images.unsplash.com/photo-1582562124811-c09040d0a901?auto=format&fit=crop&w=400&q=80', brand: 'STREET CULTURE', name: 'Men Charcoal Black Relaxed Cargo Baggy Jeans', price: '1499' },
+            { id: 'st_3', img: 'https://images.unsplash.com/photo-1604176354204-9268737828e4?auto=format&fit=crop&w=400&q=80', brand: 'ZARA WEAR', name: 'Men Deep Indigo Heavyweight Skate Baggy Jeans', price: '1199' }
+        ];
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const dynamicGrid = document.getElementById('jeansGrid');
+            const customProducts = JSON.parse(localStorage.getItem('myCustomJeans')) || [];
+            
+            // Combine both static and admin products into one master list
+            const allProducts = [...staticProducts, ...customProducts];
+            
+            document.getElementById('totalCountText').innerText = `Showing ${allProducts.length} ultra-premium streetwear items`;
+            
+            dynamicGrid.innerHTML = ''; // Clear previous items
+            
+            allProducts.forEach((product, index) => {
+                let currentPrice = parseInt(product.price) || 999;
+                let mrp = currentPrice * 2;
+                let isNew = index >= staticProducts.length ? '<span style="color:#388e3c; font-weight:bold;">(NEW)</span>' : '';
+
+                const cardHTML = `
+                    <div class="product-card" onclick="openProductDetail(${index})">
+                        <div class="img-box">
+                            <div class="wishlist-icon">🤍</div>
+                            <img src="${product.img}" onerror="this.src='https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=400&q=80'">
+                        </div>
+                        <div class="product-info">
+                            <div>
+                                <div class="brand">${product.brand.toUpperCase()}</div>
+                                <div class="name">${product.name}</div>
+                                <div class="rating">4.2 ★ ${isNew}</div>
+                            </div>
+                            <div class="price-container">
+                                <span class="price">₹${currentPrice.toLocaleString('en-IN')}</span>
+                                <span class="mrp">₹${mrp.toLocaleString('en-IN')}</span>
+                                <span class="discount">(50% OFF)</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                dynamicGrid.innerHTML += cardHTML;
+            });
+
+            // Save the master list to make routing robust
+            localStorage.setItem('masterProductList', JSON.stringify(allProducts));
+        });
+
+        function openProductDetail(index) {
+            localStorage.setItem('selectedProductIndex', index);
+            window.location.href = 'product-detail.html';
+        }
+    </script>
+</body>
+</html>

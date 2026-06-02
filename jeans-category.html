@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Men's Jeans Collection - Premium Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background-color: #f1f3f6; color: #212121; }
+
+        /* Navbar */
+        .navbar { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            background: #2874f0; 
+            padding: 12px 8%; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky; top: 0; z-index: 100;
+        }
+        .logo { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 800; color: #ffffff; letter-spacing: 1px; cursor: pointer; text-decoration: none; }
+        .logo span { color: #ffe500; }
+        .back-home { color: white; text-decoration: none; font-size: 14px; font-weight: 600; background: rgba(255,255,255,0.1); padding: 8px 15px; border-radius: 4px; }
+        .back-home:hover { background: rgba(255,255,255,0.2); }
+
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .page-title { font-size: 24px; font-weight: 700; color: #212121; margin-bottom: 5px; }
+        .sub-title { color: #878787; font-size: 14px; margin-bottom: 25px; }
+
+        /* Category Grid Layout */
+        .sub-cat-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
+            gap: 25px; 
+        }
+
+        /* Card Design */
+        .sub-cat-card { 
+            background: #ffffff; 
+            border-radius: 10px; 
+            overflow: hidden; 
+            border: 1px solid #e0e0e0; 
+            cursor: pointer; 
+            transition: 0.3s ease;
+        }
+        .sub-cat-card:hover { transform: translateY(-5px); box-shadow: 0 6px 15px rgba(0,0,0,0.1); border-color: #2874f0; }
+
+        .img-container { width: 100%; height: 320px; background: #f9f9f9; overflow: hidden; }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
+        .sub-cat-card:hover .img-container img { transform: scale(1.05); }
+
+        .info-box { padding: 20px; text-align: center; background: #ffffff; }
+        .info-box h3 { font-size: 18px; font-weight: 700; color: #212121; margin-bottom: 6px; }
+        .info-box p { font-size: 13px; color: #388e3c; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <a href="homepage.html" class="logo">MENS<span>WEAR</span></a>
+        <a href="homepage.html" class="back-home">← Back to Home</a>
+    </div>
+
+    <div class="container">
+        <h1 class="page-title">Men's Jeans Hub</h1>
+        <p class="sub-title">Explore different fits and trends for Gen-Z & Classics</p>
+
+        <div class="sub-cat-grid">
+            
+            <div class="sub-cat-card" onclick="window.location.href='baggy-jeans.html'">
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=500&q=80" alt="Baggy Jeans">
+                </div>
+                <div class="info-box">
+                    <h3>Baggy Jeans</h3>
+                    <p>🔥 Trending Streetwear | Min 40% Off</p>
+                </div>
+            </div>
+
+            <div class="sub-cat-card">
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1582562124811-c09040d0a901?auto=format&fit=crop&w=500&q=80" alt="Straight Fit Jeans">
+                </div>
+                <div class="info-box">
+                    <h3>Straight Fit Jeans</h3>
+                    <p>Classic Casuals | Flat 30% Off</p>
+                </div>
+            </div>
+
+            <div class="sub-cat-card">
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1604176354204-9268737828e4?auto=format&fit=crop&w=500&q=80" alt="Cargo Jeans">
+                </div>
+                <div class="info-box">
+                    <h3>Slim Fit Jeans</h3>
+                    <p>Comfort Stretch | Buy 1 Get 1</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

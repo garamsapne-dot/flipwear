@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlipWear | Login & Access Your Account</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Professional Flipkart Theme Reset */
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Roboto', sans-serif; }
+        body { background-color: #f1f3f6; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+
+        /* --- TWO-PANEL LUXURY LOGIN CONTAINER --- */
+        .login-main-container {
+            background: #ffffff;
+            width: 100%;
+            max-width: 750px;
+            min-height: 480px;
+            border-radius: 4px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* LEFT BLUE PANEL: BRAND BANNER (FLIPKART STYLE) */
+        .brand-blue-panel {
+            background: #2874f0;
+            width: 40%;
+            padding: 40px 33px;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .panel-logo-area { display: flex; flex-direction: column; text-decoration: none; }
+        .panel-logo { font-family: 'Montserrat', sans-serif; font-size: 26px; font-weight: 800; color: #ffffff; font-style: italic; letter-spacing: 0.5px; }
+        .panel-logo span { color: #ffe500; }
+        
+        .panel-text-content h2 { font-size: 24px; font-weight: 500; margin-bottom: 12px; font-family: 'Roboto', sans-serif; }
+        .panel-text-content p { font-size: 14px; color: #dbecf8; line-height: 1.5; }
+        .panel-footer-img { font-size: 55px; text-align: center; opacity: 0.9; margin-top: 15px; }
+
+        /* RIGHT WHITE PANEL: INTERACTIVE FORM INPUTS */
+        .form-white-panel {
+            width: 60%;
+            padding: 45px 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        /* Form styling elements */
+        .input-group-row { position: relative; margin-bottom: 22px; }
+        .input-field {
+            width: 100%;
+            padding: 12px 0;
+            border: none;
+            border-bottom: 1px solid #e0e0e0;
+            outline: none;
+            font-size: 15px;
+            color: #212121;
+            transition: border-color 0.2s;
+        }
+        .input-field:focus { border-bottom: 2px solid #2874f0; }
+        
+        /* Floating Labels Effect */
+        .input-label {
+            position: absolute; left: 0; top: 12px;
+            color: #878787; font-size: 15px; pointer-events: none;
+            transition: all 0.2s ease;
+        }
+        .input-field:focus ~ .input-label,
+        .input-field:not(:placeholder-shown) ~ .input-label {
+            top: -12px; font-size: 12px; color: #2874f0; font-weight: 500;
+        }
+
+        .terms-privacy-text { font-size: 12px; color: #878787; line-height: 1.4; margin-bottom: 20px; }
+        .terms-privacy-text a { color: #2874f0; text-decoration: none; font-weight: 500; }
+
+        /* Action Buttons System */
+        .primary-login-btn {
+            background: #fb641b;
+            color: #ffffff;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            border-radius: 2px;
+            cursor: pointer;
+            box-shadow: 0 1px 2px 0 rgba(0,0,0,0.1);
+            text-transform: uppercase;
+            transition: background 0.2s;
+        }
+        .primary-login-btn:hover { background: #e25612; }
+
+        .or-divider-line { text-align: center; color: #878787; font-size: 12px; margin: 15px 0; font-weight: 500; position: relative; }
+        
+        .request-otp-btn {
+            background: #ffffff;
+            color: #2874f0;
+            border: 1px solid #e0e0e0;
+            width: 100%;
+            padding: 13px;
+            font-size: 15px;
+            font-weight: 700;
+            border-radius: 2px;
+            cursor: pointer;
+            box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+            transition: background 0.2s;
+        }
+        .request-otp-btn:hover { background: #fafafa; }
+
+        /* Bottom Redirect Link */
+        .create-account-link { text-align: center; font-size: 14px; color: #2874f0; font-weight: 700; text-decoration: none; cursor: pointer; margin-top: auto; }
+        .create-account-link:hover { text-decoration: underline; }
+
+        /* Responsive Breakpoint for Mobile Devices */
+        @media (max-width: 650px) {
+            .login-main-container { flex-direction: column; max-width: 400px; min-height: auto; }
+            .brand-blue-panel { width: 100%; padding: 25px; }
+            .panel-footer-img { display: none; }
+            .form-white-panel { width: 100%; padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- MASTER TWO-PANEL BOARD -->
+    <div class="login-main-container">
+        
+        <!-- LEFT PANEL (BLUE DISPLAY BRANDING) -->
+        <div class="brand-blue-panel">
+            <div class="panel-logo-area">
+                <div class="panel-logo">Flip<span>Wear</span></div>
+            </div>
+            <div class="panel-text-content">
+                <h2>Login</h2>
+                <p>Get access to your Orders, Wishlist and Customized Recommendations.</p>
+            </div>
+            <div class="panel-footer-img">🛍️</div>
+        </div>
+
+        <!-- RIGHT PANEL (WHITE INTERACTIVE FORM TILES) -->
+        <form class="form-white-panel" id="loginSystemForm" onsubmit="handleSecureLogin(event)">
+            <div>
+                <!-- Input 1: User Identifier / Phone or Email -->
+                <div class="input-group-row">
+                    <input type="text" id="userAccessId" class="input-field" placeholder=" " required autocomplete="off">
+                    <label class="input-label">Enter Email / Mobile Number</label>
+                </div>
+
+                <!-- Input 2: Security Secret Key / Password -->
+                <div class="input-group-row">
+                    <input type="password" id="userAccessSecret" class="input-field" placeholder=" " required autocomplete="off">
+                    <label class="input-label">Enter Password</label>
+                </div>
+
+                <!-- Legal Policy Terms Warning -->
+                <div class="terms-privacy-text">
+                    By continuing, you agree to FlipWear's <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>.
+                </div>
+
+                <!-- Main Submit Action Trigger (Flipkart Orange Color) -->
+                <button type="submit" class="primary-login-btn">Login</button>
+
+                <div class="or-divider-line">OR</div>
+
+                <!-- Auxiliary Action Trigger (Flipkart Blue/White Theme) -->
+                <button type="button" class="request-otp-btn" onclick="alert('OTP sent to registered mobile/email successfully!')">Request OTP</button>
+            </div>
+
+            <!-- Redirection Anchor Route -->
+            <a href="#" class="create-account-link" onclick="alert('Redirecting to Signup registration portal...')">New to FlipWear? Create an account</a>
+        </form>
+
+    </div>
+
+    <!-- LOCAL ROUTING CONTROL SCRIPTS -->
+    <script>
+        function handleSecureLogin(event) {
+            event.preventDefault(); // Stop raw reload
+            
+            const userId = document.getElementById('userAccessId').value;
+            
+            // Local Session Storage updates to sync dynamically with Homepage account node
+            localStorage.setItem('userLoggedInStatus', 'true');
+            localStorage.setItem('userProfileName', userId);
+            
+            alert('Welcome back! Login Successful.');
+            
+            // Instantly route straight back into your new premium Homepage
+            window.location.href = 'homepage.html';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background-color: #f1f3f6; color: #212121; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; background: #2874f0; padding: 12px 8%; }
+        .logo { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 800; color: #ffffff; text-decoration: none; }
+        .logo span { color: #ffe500; }
+        .back-btn { color: white; text-decoration: none; font-size: 14px; font-weight: 600; background: rgba(255,255,255,0.1); padding: 8px 15px; border-radius: 4px; }
+        .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; display: flex; gap: 20px; }
+        .cart-main { flex: 1.8; background: white; border-radius: 8px; padding: 20px; border: 1px solid #e0e0e0; }
+        .cart-item { display: flex; gap: 20px; padding-bottom: 20px; }
+        .cart-img { width: 110px; height: 140px; object-fit: cover; border-radius: 4px; border: 1px solid #e0e0e0; }
+        .item-brand { font-size: 12px; font-weight: 700; color: #878787; }
+        .item-name { font-size: 15px; font-weight: 500; margin: 4px 0; }
+        .item-size { font-size: 13px; background: #f1f3f6; width: fit-content; padding: 2px 8px; border-radius: 4px; font-weight: 600; margin-bottom: 10px; }
+        .price { font-size: 18px; font-weight: 700; }
+        .mrp { font-size: 14px; color: #878787; text-decoration: line-through; margin-left: 8px; }
+        .remove-btn { background: none; border: none; font-weight: 600; font-size: 13px; color: #ff3f6c; cursor: pointer; margin-top: 10px; }
+        .cart-summary { flex: 1; background: white; border-radius: 8px; padding: 20px; border: 1px solid #e0e0e0; height: fit-content; }
+        .row { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 15px; }
+        .total-row { display: flex; justify-content: space-between; font-size: 18px; font-weight: 700; border-top: 1px dashed #e0e0e0; padding-top: 15px; }
+        .order-btn { width: 100%; padding: 14px; background: #fb641b; color: white; border: none; font-size: 16px; font-weight: 700; text-transform: uppercase; border-radius: 4px; margin-top: 15px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <a href="homepage.html" class="logo">MENS<span>WEAR</span></a>
+        <a href="homepage.html" class="back-btn">Keep Shopping</a>
+    </div>
+
+    <div class="container" id="cartContainer">
+        <div class="cart-main">
+            <h2 style="margin-bottom:20px;" id="cartTitle">Items in Cart (1)</h2>
+            <div class="cart-item" id="itemBox">
+                <img id="cImg" class="cart-img" src="">
+                <div>
+                    <div id="cBrand" class="item-brand">BRAND</div>
+                    <div id="cName" class="item-name">Product Name</div>
+                    <div id="cSize" class="item-size">Size: M</div>
+                    <div>
+                        <span id="cPrice" class="price">₹0</span>
+                        <span id="cMrp" class="mrp">₹0</span>
+                    </div>
+                    <button class="remove-btn" onclick="clearCart()">Remove Item 🗑️</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="cart-summary">
+            <h3 style="margin-bottom:15px; font-size:14px; color:#878787;">PRICE DETAILS</h3>
+            <div class="row"><span>Bag Value</span><span id="sMrp">₹0</span></div>
+            <div class="row"><span>Deducted Discount</span><span id="sDisc" style="color:#388e3c;">-₹0</span></div>
+            <div class="row"><span>Shipping</span><span style="color:#388e3c; font-weight:500;">FREE</span></div>
+            <div class="total-row"><span>Final Payable</span><span id="sTotal">₹0</span></div>
+            <button class="order-btn" onclick="checkout()">Secure Order</button>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const item = JSON.parse(localStorage.getItem('myCartItem'));
+            if(item) {
+                let p = parseInt(item.price) || 999;
+                document.getElementById('cImg').src = item.img;
+                document.getElementById('cBrand').innerText = item.brand.toUpperCase();
+                document.getElementById('cName').innerText = item.name;
+                document.getElementById('cSize').innerText = `Size: ${item.size}`;
+                document.getElementById('cPrice').innerText = `₹${p.toLocaleString('en-IN')}`;
+                document.getElementById('cMrp').innerText = `₹${(p * 2).toLocaleString('en-IN')}`;
+                
+                document.getElementById('sMrp').innerText = `₹${(p * 2).toLocaleString('en-IN')}`;
+                document.getElementById('sDisc').innerText = `-₹${p.toLocaleString('en-IN')}`;
+                document.getElementById('sTotal').innerText = `₹${p.toLocaleString('en-IN')}`;
+            } else {
+                emptyUI();
+            }
+        });
+
+        function emptyUI() {
+            document.getElementById('itemBox').style.display = 'none';
+            document.getElementById('cartTitle').innerText = "Bag is empty (0)";
+            document.getElementById('sMrp').innerText = '₹0';
+            document.getElementById('sDisc').innerText = '-₹0';
+            document.getElementById('sTotal').innerText = '₹0';
+        }
+
+        function clearCart() {
+            localStorage.removeItem('myCartItem');
+            emptyUI();
+        }
+
+        function checkout() {
+            if(!localStorage.getItem('myCartItem')) alert("Add products first!");
+            else { alert("🎉 Order booked successfully!"); clearCart(); window.location.href="homepage.html"; }
+        }
+    </script>
+</body>
+</html>

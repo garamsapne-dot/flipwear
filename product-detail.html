@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlipWear | Product Details</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Roboto', sans-serif; }
+        body { background-color: #f1f3f6; color: #212121; }
+
+        /* NAV HEADER */
+        .header-nav { background: #2874f0; padding: 12px 10%; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .logo-container { display: flex; flex-direction: column; text-decoration: none; }
+        .logo { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 800; color: #ffffff; font-style: italic; letter-spacing: 0.5px; }
+        .logo span { color: #ffe500; }
+        .nav-actions-row { display: flex; align-items: center; gap: 25px; }
+        .action-link { color: #ffffff; text-decoration: none; font-weight: 700; font-size: 15px; }
+
+        /* TWO PANEL LAYOUT */
+        .detail-main-wrapper { max-width: 1200px; margin: 25px auto; padding: 0 15px; display: flex; gap: 25px; }
+        
+        /* LEFT IMAGE PANEL */
+        .detail-left-image-panel { width: 40%; background: #ffffff; padding: 20px; border: 1px solid #e0e0e0; border-radius: 4px; display: flex; flex-direction: column; align-items: center; position: sticky; top: 80px; height: max-content; }
+        
+        /* NO-ZOOM SQUARE BOX FOR EXACT IMAGE DISPLAY */
+        .detail-image-frame-box { width: 100%; height: 400px; display: flex; align-items: center; justify-content: center; background: #ffffff; overflow: hidden; margin-bottom: 20px; }
+        .detail-image-frame-box img { max-width: 100%; max-height: 100%; object-fit: contain; width: auto; height: auto; }
+
+        /* ACTION BUTTONS */
+        .detail-action-buttons-row { display: flex; gap: 12px; width: 100%; }
+        .action-btn { flex: 1; padding: 16px; border: none; font-size: 16px; font-weight: 700; border-radius: 2px; cursor: pointer; text-transform: uppercase; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .add-to-cart-yellow { background: #ff9f00; color: white; }
+        .add-to-cart-yellow:hover { background: #f29700; }
+        .buy-now-orange { background: #fb641b; color: white; }
+        .buy-now-orange:hover { background: #e25612; }
+
+        /* RIGHT INFO PANEL */
+        .detail-right-info-panel { width: 60%; background: #ffffff; padding: 25px; border: 1px solid #e0e0e0; border-radius: 4px; display: flex; flex-direction: column; }
+        .brand-name-tag { font-size: 15px; font-weight: 700; color: #878787; text-transform: uppercase; margin-bottom: 5px; }
+        .product-main-title { font-size: 20px; font-weight: 400; color: #212121; line-height: 1.4; margin-bottom: 10px; }
+        .rating-badge-pill { background: #388e3c; color: white; font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 3px; width: max-content; margin-bottom: 15px; }
+        
+        .price-section-container { display: flex; align-items: baseline; gap: 12px; border-bottom: 1px solid #f0f0f0; padding-bottom: 15px; margin-bottom: 15px; }
+        .live-deal-price { font-size: 28px; font-weight: 700; color: #212121; }
+        .slashed-old-price { font-size: 16px; color: #878787; text-decoration: line-through; }
+        .active-off-percent { font-size: 16px; color: #388e3c; font-weight: 700; }
+
+        .offers-title { font-size: 15px; font-weight: 700; margin-bottom: 10px; }
+        .offer-item { font-size: 13px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .offer-tag-icon { color: #388e3c; font-weight: bold; }
+        
+        .size-selection-box { margin: 20px 0; }
+        .size-btn-group { display: flex; gap: 10px; margin-top: 8px; }
+        .size-radio-label { border: 1px solid #e0e0e0; padding: 8px 16px; border-radius: 2px; font-size: 14px; font-weight: 500; cursor: pointer; }
+
+        @media (max-width: 850px) {
+            .detail-main-wrapper { flex-direction: column; }
+            .detail-left-image-panel, .detail-right-info-panel { width: 100%; position: static; }
+            .detail-image-frame-box { height: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-nav">
+        <a href="homepage.html" class="logo-container">
+            <div class="logo">Flip<span>Wear</span></div>
+        </a>
+        <div class="nav-actions-row">
+            <a href="homepage.html" class="action-link">🏠 Home</a>
+            <a href="cart.html" class="action-link">🛒 Cart</a>
+        </div>
+    </div>
+
+    <div class="detail-main-wrapper" id="masterProductDetailContainerSlot">
+        </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            // STEP 1: Catching the exact item details passed from the category store click event
+            const rawStoredPayload = localStorage.getItem('selectedProductDetails');
+            const mainContainer = document.getElementById('masterProductDetailContainerSlot');
+
+            if (!rawStoredPayload) {
+                mainContainer.innerHTML = `<div style="background:white; padding:40px; text-align:center; width:100%;">⚠️ No item selected! Please go back to <a href="homepage.html">Home Store</a></div>`;
+                return;
+            }
+
+            // STEP 2: Parsing data securely
+            const currentProduct = JSON.parse(rawStoredPayload);
+
+            // STEP 3: Injecting the EXACT image url dynamically into the HTML frame (Destroys old image overrides)
+            mainContainer.innerHTML = `
+                <div class="detail-left-image-panel">
+                    <div class="detail-image-frame-box">
+                        <img src="${currentProduct.image}" id="targetDynamicMainImage" alt="Product Image">
+                    </div>
+                    
+                    <div class="detail-action-buttons-row">
+                        <button class="action-btn add-to-cart-yellow" onclick="executeAddToCartProcess()">🛒 Add To Cart</button>
+                        <button class="action-btn buy-now-orange" onclick="executeBuyNowProcess()">⚡ Buy Now</button>
+                    </div>
+                </div>
+
+                <div class="detail-right-info-panel">
+                    <div class="brand-name-tag">${currentProduct.brand}</div>
+                    <h1 class="product-main-title">${currentProduct.name}</h1>
+                    
+                    <div class="rating-badge-pill">4.5 ★ <span style="font-weight:400; color:#dbecf8; margin-left:5px;">(Verified Product)</span></div>
+                    
+                    <div class="price-section-container">
+                        <span class="live-deal-price">₹${currentProduct.price}</span>
+                        <span class="slashed-old-price">₹${currentProduct.originalPrice || currentProduct.price * 2}</span>
+                        <span class="active-off-percent">${currentProduct.discount || '50% Off'}</span>
+                    </div>
+
+                    <div class="offers-section">
+                        <div class="offers-title">Available Offers</div>
+                        <div class="offer-item"><span class="offer-tag-icon">🏷️</span> <span><b>Bank Offer:</b> 10% instant discount on SBI Credit Cards.</span></div>
+                        <div class="offer-item"><span class="offer-tag-icon">🏷️</span> <span><b>Partner Offer:</b> Free shipping on all prepaid orders.</span></div>
+                    </div>
+
+                    <div class="size-selection-box">
+                        <div class="offers-title">Select Size</div>
+                        <div class="size-btn-group">
+                            <span class="size-radio-label" style="border-color:#2874f0; color:#2874f0;">M</span>
+                            <span class="size-radio-label">L</span>
+                            <span class="size-radio-label">XL</span>
+                        </div>
+                    </div>
+
+                    <p style="font-size:14px; margin-top:15px; color:#555; line-height:1.6;">
+                        <b>Product Description:</b> This item was freshly synced from the FlipWear Product Database pipeline. Made with elite long-lasting fabric, tailored for a perfect premium fit.
+                    </p>
+                </div>
+            `;
+        });
+
+        // Cart Memory Management Pipeline
+        function executeAddToCartProcess() {
+            const currentProduct = JSON.parse(localStorage.getItem('selectedProductDetails'));
+
+            const cartPayload = {
+                itemID: currentProduct.id,
+                itemTitle: currentProduct.name,
+                itemCost: currentProduct.price,
+                itemPic: currentProduct.image // Syncs exact uploaded image straight to Cart page
+            };
+
+            localStorage.setItem('myCartItem', JSON.stringify(cartPayload));
+            alert('🛍️ Success! Added to your Cart.');
+            window.location.href = 'cart.html';
+        }
+
+        function executeBuyNowProcess() {
+            executeAddToCartProcess();
+        }
+    </script>
+</body>
+</html>
