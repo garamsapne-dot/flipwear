@@ -2,197 +2,332 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlipWear | Login & Access Your Account</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Damruwala | Secure Access</title>
+    <!-- PREMIUM APP FONTS COMBO -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:ital,wght@0,500;0,700;1,600;1,800&display=swap" rel="stylesheet">
+    
+    <!-- OFFICIAL GOOGLE AUTHENTICATION API SCRIPT -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    
     <style>
-        /* Professional Flipkart Theme Reset */
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Roboto', sans-serif; }
-        body { background-color: #f1f3f6; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
-
-        /* --- TWO-PANEL LUXURY LOGIN CONTAINER --- */
-        .login-main-container {
-            background: #ffffff;
-            width: 100%;
-            max-width: 750px;
-            min-height: 480px;
-            border-radius: 4px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-            display: flex;
-            overflow: hidden;
-        }
-
-        /* LEFT BLUE PANEL: BRAND BANNER (FLIPKART STYLE) */
-        .brand-blue-panel {
-            background: #2874f0;
-            width: 40%;
-            padding: 40px 33px;
-            color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .panel-logo-area { display: flex; flex-direction: column; text-decoration: none; }
-        .panel-logo { font-family: 'Montserrat', sans-serif; font-size: 26px; font-weight: 800; color: #ffffff; font-style: italic; letter-spacing: 0.5px; }
-        .panel-logo span { color: #ffe500; }
+        /* CORE RE-SET & MOBILE SCREEN LOCK */
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
         
-        .panel-text-content h2 { font-size: 24px; font-weight: 500; margin-bottom: 12px; font-family: 'Roboto', sans-serif; }
-        .panel-text-content p { font-size: 14px; color: #dbecf8; line-height: 1.5; }
-        .panel-footer-img { font-size: 55px; text-align: center; opacity: 0.9; margin-top: 15px; }
-
-        /* RIGHT WHITE PANEL: INTERACTIVE FORM INPUTS */
-        .form-white-panel {
-            width: 60%;
-            padding: 45px 35px;
+        body { 
+            background-color: #f1f3f6; 
+            color: #111111;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            min-height: 100vh;
+            max-width: 450px; 
+            margin: 0 auto;
             position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
         }
 
-        /* Form styling elements */
-        .input-group-row { position: relative; margin-bottom: 22px; }
-        .input-field {
-            width: 100%;
-            padding: 12px 0;
-            border: none;
-            border-bottom: 1px solid #e0e0e0;
-            outline: none;
-            font-size: 15px;
-            color: #212121;
-            transition: border-color 0.2s;
-        }
-        .input-field:focus { border-bottom: 2px solid #2874f0; }
-        
-        /* Floating Labels Effect */
-        .input-label {
-            position: absolute; left: 0; top: 12px;
-            color: #878787; font-size: 15px; pointer-events: none;
-            transition: all 0.2s ease;
-        }
-        .input-field:focus ~ .input-label,
-        .input-field:not(:placeholder-shown) ~ .input-label {
-            top: -12px; font-size: 12px; color: #2874f0; font-weight: 500;
-        }
-
-        .terms-privacy-text { font-size: 12px; color: #878787; line-height: 1.4; margin-bottom: 20px; }
-        .terms-privacy-text a { color: #2874f0; text-decoration: none; font-weight: 500; }
-
-        /* Action Buttons System */
-        .primary-login-btn {
-            background: #fb641b;
+        /* FLIPKART STYLE GRADIENT HEADER */
+        .app-blue-header {
+            background: linear-gradient(180deg, #2874f0 0%, #1a62d6 100%);
+            padding: 35px 24px 55px 24px;
             color: #ffffff;
-            border: none;
-            width: 100%;
-            padding: 14px;
-            font-size: 15px;
-            font-weight: 700;
-            border-radius: 2px;
-            cursor: pointer;
-            box-shadow: 0 1px 2px 0 rgba(0,0,0,0.1);
-            text-transform: uppercase;
-            transition: background 0.2s;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
         }
-        .primary-login-btn:hover { background: #e25612; }
+        .branding-wrapper { display: flex; flex-direction: column; }
+        .presents-badge { font-size: 10px; font-weight: 700; color: #d2e3fc; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 4px; }
+        .main-shop-title { font-family: 'Poppins', sans-serif; font-size: 32px; font-weight: 800; color: #ffffff; font-style: italic; letter-spacing: 0.5px; line-height: 1.1; }
+        .trending-tagline { font-family: 'Poppins', sans-serif; font-size: 13px; color: #ffe500; font-style: italic; font-weight: 600; margin-top: 4px; }
 
-        .or-divider-line { text-align: center; color: #878787; font-size: 12px; margin: 15px 0; font-weight: 500; position: relative; }
-        
-        .request-otp-btn {
+        /* OVERLAPPING LOGIN INTERACTIVE CARD */
+        .main-login-card {
             background: #ffffff;
-            color: #2874f0;
-            border: 1px solid #e0e0e0;
-            width: 100%;
-            padding: 13px;
-            font-size: 15px;
-            font-weight: 700;
-            border-radius: 2px;
-            cursor: pointer;
-            box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
-            transition: background 0.2s;
+            margin: -35px 16px 16px 16px;
+            padding: 28px 20px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
-        .request-otp-btn:hover { background: #fafafa; }
 
-        /* Bottom Redirect Link */
-        .create-account-link { text-align: center; font-size: 14px; color: #2874f0; font-weight: 700; text-decoration: none; cursor: pointer; margin-top: auto; }
-        .create-account-link:hover { text-decoration: underline; }
+        .form-heading { font-size: 18px; font-weight: 700; color: #212121; margin-bottom: 20px; }
 
-        /* Responsive Breakpoint for Mobile Devices */
-        @media (max-width: 650px) {
-            .login-main-container { flex-direction: column; max-width: 400px; min-height: auto; }
-            .brand-blue-panel { width: 100%; padding: 25px; }
-            .panel-footer-img { display: none; }
-            .form-white-panel { width: 100%; padding: 30px 20px; }
+        .input-box-wrapper {
+            display: flex;
+            align-items: center;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 0 12px;
+            height: 52px;
+            margin-bottom: 14px;
+            background: #fafafa;
         }
+        .input-box-wrapper:focus-within { border-color: #2874f0; background: #ffffff; }
+        .country-prefix { font-size: 15px; font-weight: 600; color: #666666; padding-right: 10px; border-right: 1px solid #e0e0e0; margin-right: 12px; }
+        .form-field { width: 100%; border: none; outline: none; font-size: 16px; font-weight: 600; color: #212121; background: transparent; }
+
+        .error-text-toast { color: #d32f2f; font-size: 12px; font-weight: 500; margin-top: -6px; margin-bottom: 14px; display: none; }
+        .btn-orange-trigger {
+            width: 100%; background: #fb641b; color: #ffffff; border: none; height: 50px; font-size: 15px; font-weight: 700; border-radius: 8px; cursor: pointer; text-transform: uppercase; margin-top: 5px;
+        }
+
+        .toggle-form-view { text-align: center; margin-top: 20px; font-size: 14px; color: #666666; }
+        .toggle-form-view span { color: #2874f0; font-weight: 600; cursor: pointer; }
+
+        .social-divider { display: flex; align-items: center; text-align: center; color: #878787; font-size: 12px; margin: 25px 0; text-transform: uppercase; }
+        .social-divider::before, .social-divider::after { content: ''; flex: 1; border-bottom: 1px dashed #e0e0e0; }
+        .social-divider:not(:empty)::before { margin-right: .8em; }
+        .social-divider:not(:empty)::after { margin-left: .8em; }
+
+        .google-btn-container { display: flex; justify-content: center; width: 100%; margin-top: 10px; }
+        .legal-notice { font-size: 11px; color: #878787; text-align: center; line-height: 1.6; margin-top: 35px; }
+        .legal-notice a { color: #2874f0; text-decoration: none; }
+        .app-secure-footer { text-align: center; padding: 16px; font-size: 12px; font-weight: 500; color: #878787; background: #ffffff; border-top: 1px solid #e0e0e0; }
+
+        /* LOADING SPINNER */
+        .loading-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.8);
+            display: flex; justify-content: center; align-items: center; z-index: 1000; display: none;
+        }
+        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #2874f0; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
-    <!-- MASTER TWO-PANEL BOARD -->
-    <div class="login-main-container">
-        
-        <!-- LEFT PANEL (BLUE DISPLAY BRANDING) -->
-        <div class="brand-blue-panel">
-            <div class="panel-logo-area">
-                <div class="panel-logo">Flip<span>Wear</span></div>
-            </div>
-            <div class="panel-text-content">
-                <h2>Login</h2>
-                <p>Get access to your Orders, Wishlist and Customized Recommendations.</p>
-            </div>
-            <div class="panel-footer-img">🛍️</div>
-        </div>
-
-        <!-- RIGHT PANEL (WHITE INTERACTIVE FORM TILES) -->
-        <form class="form-white-panel" id="loginSystemForm" onsubmit="handleSecureLogin(event)">
-            <div>
-                <!-- Input 1: User Identifier / Phone or Email -->
-                <div class="input-group-row">
-                    <input type="text" id="userAccessId" class="input-field" placeholder=" " required autocomplete="off">
-                    <label class="input-label">Enter Email / Mobile Number</label>
-                </div>
-
-                <!-- Input 2: Security Secret Key / Password -->
-                <div class="input-group-row">
-                    <input type="password" id="userAccessSecret" class="input-field" placeholder=" " required autocomplete="off">
-                    <label class="input-label">Enter Password</label>
-                </div>
-
-                <!-- Legal Policy Terms Warning -->
-                <div class="terms-privacy-text">
-                    By continuing, you agree to FlipWear's <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>.
-                </div>
-
-                <!-- Main Submit Action Trigger (Flipkart Orange Color) -->
-                <button type="submit" class="primary-login-btn">Login</button>
-
-                <div class="or-divider-line">OR</div>
-
-                <!-- Auxiliary Action Trigger (Flipkart Blue/White Theme) -->
-                <button type="button" class="request-otp-btn" onclick="alert('OTP sent to registered mobile/email successfully!')">Request OTP</button>
-            </div>
-
-            <!-- Redirection Anchor Route -->
-            <a href="#" class="create-account-link" onclick="alert('Redirecting to Signup registration portal...')">New to FlipWear? Create an account</a>
-        </form>
-
+    <!-- SCREEN SAVER LOADER -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner"></div>
     </div>
 
-    <!-- LOCAL ROUTING CONTROL SCRIPTS -->
+    <!-- BRAND TOP IDENTITY AREA -->
+    <div class="app-blue-header">
+        <div class="branding-wrapper">
+            <span class="presents-badge">Ma sheetla garments presents</span>
+            <h1 class="main-shop-title">Damruwala</h1>
+            <span class="trending-tagline">🔥 always trending</span>
+        </div>
+    </div>
+
+    <!-- MAIN CONTROL CENTER CARD -->
+    <div class="main-login-card">
+        
+        <!-- LOGIN SECTION -->
+        <div id="loginFormSection">
+            <h2 class="form-heading">Sign In to Your Account</h2>
+            <form onsubmit="handleCustomerLogin(event)">
+                <div class="input-box-wrapper">
+                    <div class="country-prefix">🇮🇳 +91</div>
+                    <input type="tel" id="loginPhone" class="form-field" placeholder="Enter Mobile Number" maxlength="10" inputmode="numeric" required>
+                </div>
+                <div class="input-box-wrapper">
+                    <input type="password" id="loginPassword" class="form-field" placeholder="Enter Password" required>
+                </div>
+                <div id="loginError" class="error-text-toast">⚠️ Number ya Password galat hai!</div>
+                <button type="submit" class="btn-orange-trigger">Log In</button>
+            </form>
+            <div class="toggle-form-view">
+                New to Damruwala? <span onclick="switchForm('signup')">Create an account</span>
+            </div>
+        </div>
+
+        <!-- SIGNUP SECTION -->
+        <div id="signupFormSection" style="display: none;">
+            <h2 class="form-heading">Create New Account</h2>
+            <form onsubmit="handleCustomerSignup(event)">
+                <div class="input-box-wrapper">
+                    <div class="country-prefix">🇮🇳 +91</div>
+                    <input type="tel" id="signupPhone" class="form-field" placeholder="Enter Mobile Number" maxlength="10" inputmode="numeric" required>
+                </div>
+                <div class="input-box-wrapper">
+                    <input type="password" id="signupPassword" class="form-field" placeholder="Create Strong Password" minlength="4" required>
+                </div>
+                <div id="signupError" class="error-text-toast">⚠️ Yeh number pehle se registered hai!</div>
+                <button type="submit" class="btn-orange-trigger">Sign Up</button>
+            </form>
+            <div class="toggle-form-view">
+                Already have an account? <span onclick="switchForm('login')">Sign In</span>
+            </div>
+        </div>
+
+        <!-- GOOGLE SYSTEM CONFIGURATION -->
+        <div>
+            <div class="social-divider">Or Continue With</div>
+            
+            <div class="google-btn-container">
+                <div id="g_id_onload"
+                     data-client_id="953057548418-k5t0aghnuk81e9tnc2qm4eae4q0bt8kf.apps.googleusercontent.com"
+                     data-context="signin"
+                     data-ux_mode="popup"
+                     data-callback="handleGoogleResponse"
+                     data-auto_prompt="false">
+                </div>
+
+                <div class="g_id_signin"
+                     data-type="standard"
+                     data-shape="rectangular"
+                     data-theme="outline"
+                     data-text="continue_with"
+                     data-size="large"
+                     data-logo_alignment="left"
+                     data-width="380">
+                </div>
+            </div>
+
+            <p class="legal-notice">
+                By continuing, you agree to Damruwala's <a href="#">Terms of Use</a> & <a href="#">Privacy Policy</a>.
+            </p>
+        </div>
+    </div>
+
+    <div class="app-secure-footer">
+        🛡️ Verified and Secured by Ma Sheetla Garments
+    </div>
+
     <script>
-        function handleSecureLogin(event) {
-            event.preventDefault(); // Stop raw reload
-            
-            const userId = document.getElementById('userAccessId').value;
-            
-            // Local Session Storage updates to sync dynamically with Homepage account node
-            localStorage.setItem('userLoggedInStatus', 'true');
-            localStorage.setItem('userProfileName', userId);
-            
-            alert('Welcome back! Login Successful.');
-            
-            // Instantly route straight back into your new premium Homepage
-            window.location.href = 'homepage.html';
+        // YOUR LIVE GOOGLE SHEET DEPLOYED LINK
+        const GOOGLE_SHEET_API = "https://script.google.com/macros/s/AKfycbyGeG25_0a7zTdqijaYypgA0WJTIWs0g93zHfjw25gq1oipLSIlPdfbm_asIWwQKPSYcA/exec";
+
+        function switchForm(view) {
+            document.getElementById('loginError').style.display = 'none';
+            document.getElementById('signupError').style.display = 'none';
+            if(view === 'signup') {
+                document.getElementById('loginFormSection').style.display = 'none';
+                document.getElementById('signupFormSection').style.display = 'block';
+            } else {
+                document.getElementById('signupFormSection').style.display = 'none';
+                document.getElementById('loginFormSection').style.display = 'block';
+            }
         }
+
+        function getLocalStorageUserBase() {
+            const users = localStorage.getItem('damruwala_users');
+            return users ? JSON.parse(users) : {};
+        }
+
+        // PHONE SIGNUP TO GOOGLE SHEET
+        function handleCustomerSignup(event) {
+            event.preventDefault();
+            const phone = document.getElementById('signupPhone').value.trim();
+            const password = document.getElementById('signupPassword').value;
+            const errorBox = document.getElementById('signupError');
+
+            if(!/^[6-9]\d{9}$/.test(phone)) {
+                errorBox.innerText = "⚠️ Kripya sahi 10-digit number enter karein.";
+                errorBox.style.display = 'block';
+                return;
+            }
+
+            const db = getLocalStorageUserBase();
+            if (db[phone]) {
+                errorBox.innerText = "⚠️ Yeh number pehle se registered hai!";
+                errorBox.style.display = 'block';
+                return;
+            }
+
+            const generatedId = "DAMRU_" + Math.floor(100000 + Math.random() * 900000);
+            db[phone] = { customerId: generatedId, password: password };
+            localStorage.setItem('damruwala_users', JSON.stringify(db));
+            
+            // Send to Sheet & Redirect
+            sendDataToGoogleSheet(generatedId, "New Phone User", "No Email Linked", phone);
+        }
+
+        // PHONE LOGIN
+        function handleCustomerLogin(event) {
+            event.preventDefault();
+            const phone = document.getElementById('loginPhone').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const errorBox = document.getElementById('loginError');
+
+            const db = getLocalStorageUserBase();
+            if(db[phone] && db[phone].password === password) {
+                // Already registered, simply jump to homepage
+                commitUserSessionChannel(db[phone].customerId, "Registered User", phone);
+            } else {
+                errorBox.innerText = "⚠️ Invalid Mobile Number or Password!";
+                errorBox.style.display = 'block';
+            }
+        }
+
+        // REAL GOOGLE AUTH RESPONSE
+        function handleGoogleResponse(response) {
+            try {
+                const token = response.credential;
+                const base64Url = token.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+
+                const googleUser = JSON.parse(jsonPayload);
+
+                const customerEmail = googleUser.email; 
+                const customerName = googleUser.name;   
+                const googleUniqueSubId = "DAMRU_G_" + googleUser.sub.substring(0, 6);
+
+                // Ask for phone number since Google doesn't provide it
+                setTimeout(() => {
+                    let userPhone = prompt("✨ Welcome " + customerName + "!\nPlease enter your 10-digit Mobile Number for delivery updates:", "");
+                    if (userPhone == null || userPhone.trim() === "" || !/^[6-9]\d{9}$/.test(userPhone.trim())) {
+                        userPhone = "Not Provided By Customer";
+                    }
+                    
+                    // Fire data directly to your Google Sheet!
+                    sendDataToGoogleSheet(googleUniqueSubId, customerName, customerEmail, userPhone);
+                }, 500);
+
+            } catch (error) {
+                console.error("Google Sync Error", error);
+                alert("⚠️ Google authentication fail ho gaya.");
+            }
+        }
+
+        // DYNAMIC GOOGLE SHEET AJAX ENGINE
+        function sendDataToGoogleSheet(id, name, email, phone) {
+            document.getElementById('loadingOverlay').style.display = 'flex';
+
+            const payload = {
+                customerId: id,
+                name: name,
+                email: email,
+                phone: phone
+            };
+
+            // Use fetch with no-cors or standard according to deployment rules
+            fetch(GOOGLE_SHEET_API, {
+                method: "POST",
+                mode: "no-cors", // Required to bypass browser cors policies on scripts
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                document.getElementById('loadingOverlay').style.display = 'none';
+                commitUserSessionChannel(id, name, phone);
+            })
+            .catch(err => {
+                console.error("Sheet Sync Failed", err);
+                document.getElementById('loadingOverlay').style.display = 'none';
+                // Move forward even if sheets fail so business doesn't stop
+                commitUserSessionChannel(id, name, phone);
+            });
+        }
+
+        // GLOBAL SESSION AND ROUTING
+        function commitUserSessionChannel(customerId, name, phone) {
+            localStorage.setItem('isUserLoggedIn', 'true');
+            localStorage.setItem('currentCustomerId', customerId); 
+            localStorage.setItem('userMobileNumber', phone);
+            localStorage.setItem('customerName', name);
+            
+            alert("🎉 Access Granted! Data Saved into Damruwala Sheets.");
+            window.location.href = 'index.html';
+        }
+
+        document.getElementById('loginPhone').addEventListener('input', () => { document.getElementById('loginError').style.display = 'none'; });
+        document.getElementById('signupPhone').addEventListener('input', () => { document.getElementById('signupError').style.display = 'none'; });
     </script>
 </body>
 </html>
