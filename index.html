@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Damruwala | Secure Access</title>
-    <!-- PREMIUM APP FONTS COMBO -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:ital,wght@0,500;0,700;1,600;1,800&display=swap" rel="stylesheet">
     
-    <!-- OFFICIAL GOOGLE AUTHENTICATION API SCRIPT -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     
     <style>
@@ -75,7 +73,7 @@
         .form-heading { font-size: 20px; font-weight: 700; color: #212121; margin-bottom: 8px; }
         .form-subheading { font-size: 13px; color: #666666; line-height: 1.5; padding: 0 10px; }
 
-        /* SHOPPING BENEFITS LIST (FILLS THE EMPTY SPACE BEAUTIFULLY) */
+        /* SHOPPING BENEFITS LIST */
         .shop-features-list {
             margin: 15px 0 25px 0;
             background: #fafafa;
@@ -100,8 +98,33 @@
         .social-divider:not(:empty)::before { margin-right: .8em; }
         .social-divider:not(:empty)::after { margin-left: .8em; }
 
-        .google-btn-container { display: flex; justify-content: center; width: 100%; }
+        /* BUTTONS STACK CONTAINER */
+        .google-btn-container { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            width: 100%; 
+            gap: 14px; 
+        }
         
+        /* PREMIUM GUEST BUTTON DESIGN */
+        .btn-guest-gate {
+            width: 100%;
+            max-width: 380px;
+            background: #ffffff;
+            color: #2874f0;
+            border: 1.5px solid #2874f0;
+            padding: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            border-radius: 4px;
+            cursor: pointer;
+            text-transform: uppercase;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(40,116,240,0.05);
+        }
+        .btn-guest-gate:active { background: #f0f5ff; }
+
         .legal-notice { font-size: 11px; color: #878787; text-align: center; line-height: 1.6; margin-top: 30px; }
         .legal-notice a { color: #2874f0; text-decoration: none; }
         .app-secure-footer { text-align: center; padding: 16px; font-size: 12px; font-weight: 500; color: #878787; background: #ffffff; border-top: 1px solid #e0e0e0; }
@@ -113,91 +136,186 @@
         }
         .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #2874f0; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* -----------------------------------------------------
+           Aapki Dukaan (Homepage) ka styling area jo login ke baad dikhega
+           ----------------------------------------------------- */
+        #dukaanContainer {
+            display: none; /* By default hidden rahega */
+            padding: 20px;
+            background: #f1f3f6;
+        }
+        .dukaan-header {
+            background: #2874f0; color: white; padding: 15px; border-radius: 8px; margin-bottom: 20px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .product-card {
+            background: white; border-radius: 8px; padding: 15px; margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center;
+        }
+        .btn-buy {
+            background: #fb641b; color: white; border: none; padding: 8px 15px; font-weight: bold; border-radius: 4px; cursor: pointer;
+        }
+
+        /* DYNAMIC POPUP MODAL (CHECKOUT FORM FOR GUEST) */
+        .guest-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center;
+            z-index: 2000; display: none;
+        }
+        .guest-modal-content {
+            background: white; padding: 20px; border-radius: 12px; width: 90%; max-width: 400px;
+        }
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; font-size: 12px; margin-bottom: 4px; font-weight: bold; }
+        .form-group input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        .btn-submit-order { width: 100%; background: #fb641b; color: white; border: none; padding: 10px; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-    <!-- SCREEN SAVER LOADER -->
     <div id="loadingOverlay" class="loading-overlay">
         <div class="spinner"></div>
     </div>
 
-    <!-- BRAND TOP IDENTITY AREA -->
-    <div class="app-blue-header">
-        <div class="branding-wrapper">
-            <span class="presents-badge">Ma sheetla garments presents</span>
-            <h1 class="main-shop-title">Damruwala</h1>
-            <span class="trending-tagline">🔥 always trending</span>
+    <div id="loginSection">
+        <div class="app-blue-header">
+            <div class="branding-wrapper">
+                <span class="presents-badge">Ma sheetla garments presents</span>
+                <h1 class="main-shop-title">Damruwala</h1>
+                <span class="trending-tagline">🔥 always trending</span>
+            </div>
+        </div>
+
+        <div class="main-login-card">
+            <div>
+                <div class="shop-welcome-area">
+                    <div class="shop-icon-badge">🛍️</div>
+                    <h2 class="form-heading">Welcome to Damruwala Shop</h2>
+                    <p class="form-subheading">Explore the latest trending outfits and premium collections curated by Ma Sheetla Garments.</p>
+                </div>
+
+                <div class="shop-features-list">
+                    <div class="feature-item"><span class="feature-icon">✨</span><span>Exclusive Trending Clothes & Fabrics</span></div>
+                    <div class="feature-item"><span class="feature-icon">🚚</span><span>Fast Delivery straight to your doorstep</span></div>
+                    <div class="feature-item"><span class="feature-icon">🔒</span><span>100% Verified & Secure Single-Click Access</span></div>
+                </div>
+
+                <div class="social-divider">Secure Login Gate</div>
+            </div>
+
+            <div>
+                <div class="google-btn-container">
+                    <div id="g_id_onload"
+                         data-client_id="953057548418-k5t0aghnuk81e9tnc2qm4eae4q0bt8kf.apps.googleusercontent.com"
+                         data-context="signin"
+                         data-ux_mode="popup"
+                         data-callback="handleGoogleResponse"
+                         data-auto_prompt="false">
+                    </div>
+
+                    <div class="g_id_signin"
+                         data-type="standard"
+                         data-shape="rectangular"
+                         data-theme="outline"
+                         data-text="continue_with"
+                         data-size="large"
+                         data-logo_alignment="left"
+                         data-width="380">
+                    </div>
+
+                    <button class="btn-guest-gate" onclick="launchGuestSession()">Continue as a Guest 🌟</button>
+                </div>
+
+                <p class="legal-notice">
+                    By continuing, you agree to Damruwala's <a href="#">Terms of Use</a> & <a href="#">Privacy Policy</a>.
+                </p>
+            </div>
+        </div>
+
+        <div class="app-secure-footer">
+            🛡️ Verified and Secured by Ma Sheetla Garments
         </div>
     </div>
 
-    <!-- MAIN CONTROL CENTER CARD -->
-    <div class="main-login-card">
-        
-        <div>
-            <!-- PREMIUM SHOP WELCOME INFO (REPLACED PHONE LOGIN) -->
-            <div class="shop-welcome-area">
-                <div class="shop-icon-badge">🛍️</div>
-                <h2 class="form-heading">Welcome to Damruwala Shop</h2>
-                <p class="form-subheading">Explore the latest trending outfits and premium collections curated by Ma Sheetla Garments.</p>
-            </div>
 
-            <!-- DYNAMIC SHOPPING THEME BENEFITS -->
-            <div class="shop-features-list">
-                <div class="feature-item">
-                    <span class="feature-icon">✨</span>
-                    <span>Exclusive Trending Clothes & Fabrics</span>
-                </div>
-                <div class="feature-item">
-                    <span class="feature-icon">🚚</span>
-                    <span>Fast Delivery straight to your doorstep</span>
-                </div>
-                <div class="feature-item">
-                    <span class="feature-icon">🔒</span>
-                    <span>100% Verified & Secure Single-Click Access</span>
-                </div>
-            </div>
-
-            <div class="social-divider">Secure Login Gate</div>
+    <div id="dukaanContainer">
+        <div class="dukaan-header">
+            <h2 id="welcomeUser">Welcome To Store</h2>
+            <button onclick="logoutSession()" style="background:none; border:none; color:white; font-weight:bold; cursor:pointer;">Logout</button>
         </div>
 
-        <!-- GOOGLE SYSTEM CONFIGURATION ONLY -->
-        <div>
-            <div class="google-btn-container">
-                <div id="g_id_onload"
-                     data-client_id="953057548418-k5t0aghnuk81e9tnc2qm4eae4q0bt8kf.apps.googleusercontent.com"
-                     data-context="signin"
-                     data-ux_mode="popup"
-                     data-callback="handleGoogleResponse"
-                     data-auto_prompt="false">
-                </div>
-
-                <div class="g_id_signin"
-                     data-type="standard"
-                     data-shape="rectangular"
-                     data-theme="outline"
-                     data-text="continue_with"
-                     data-size="large"
-                     data-logo_alignment="left"
-                     data-width="380">
-                </div>
+        <div class="product-card">
+            <div>
+                <h4>Premium Trendy Shirt</h4>
+                <p style="color:#2874f0; font-weight:bold;">₹499</p>
             </div>
+            <button class="btn-buy" onclick="handleBuyClick()">Buy Now 🛍️</button>
+        </div>
 
-            <p class="legal-notice">
-                By continuing, you agree to Damruwala's <a href="#">Terms of Use</a> & <a href="#">Privacy Policy</a>.
-            </p>
+        <div class="product-card">
+            <div>
+                <h4>Stylish Baggy Jeans</h4>
+                <p style="color:#2874f0; font-weight:bold;">₹699</p>
+            </div>
+            <button class="btn-buy" onclick="handleBuyClick()">Buy Now 🛍️</button>
         </div>
     </div>
 
-    <div class="app-secure-footer">
-        🛡️ Verified and Secured by Ma Sheetla Garments
+
+    <div class="guest-modal" id="guestCheckoutModal">
+        <div class="guest-modal-content">
+            <h3 style="margin-bottom:15px; text-align:center;">Complete Your Order 🚚</h3>
+            
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="custName" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label>Mobile Number</label>
+                <input type="tel" id="custPhone" placeholder="10-digit number">
+            </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="custEmail" placeholder="name@email.com">
+            </div>
+
+            <button class="btn-submit-order" onclick="submitGuestOrder()">Confirm Order 🚀</button>
+            <button onclick="closeModal()" style="width:100%; background:none; border:none; margin-top:8px; color:#666; cursor:pointer;">Cancel</button>
+        </div>
     </div>
+
 
     <script>
-        // YOUR LIVE GOOGLE SHEET DEPLOYED LINK
         const GOOGLE_SHEET_API = "https://script.google.com/macros/s/AKfycbyGeG25_0a7zTdqijaYypgA0WJTIWs0g93zHfjw25gq1oipLSIlPdfbm_asIWwQKPSYcA/exec";
 
-        // REAL GOOGLE AUTH RESPONSE WITH STRICT MANDATORY PHONE VALIDATION
+        // APP LOAD CHECKER
+        window.addEventListener('DOMContentLoaded', () => {
+            checkCurrentSession();
+        });
+
+        function checkCurrentSession() {
+            const isLoggedIn = localStorage.getItem('isUserLoggedIn');
+            const isGuest = localStorage.getItem('isGuestMode');
+
+            if (isLoggedIn === 'true' || isGuest === 'true') {
+                // Hide Login, Show Shop Content
+                document.getElementById('loginSection').style.display = 'none';
+                document.getElementById('dukaanContainer').style.display = 'block';
+
+                if (isGuest === 'true') {
+                    document.getElementById('welcomeUser').innerText = "Welcome Guest User 🌟";
+                } else {
+                    document.getElementById('welcomeUser').innerText = "Hello, " + (localStorage.getItem('customerName') || "User");
+                }
+            } else {
+                // Keep Login Visible
+                document.getElementById('loginSection').style.display = 'block';
+                document.getElementById('dukaanContainer').style.display = 'none';
+            }
+        }
+
+        // GOOGLE AUTH SUCCESS RESPONDER
         function handleGoogleResponse(response) {
             try {
                 const token = response.credential;
@@ -208,53 +326,36 @@
                 }).join(''));
 
                 const googleUser = JSON.parse(jsonPayload);
-
                 const customerEmail = googleUser.email; 
                 const customerName = googleUser.name;   
                 const googleUniqueSubId = "DAMRU_G_" + googleUser.sub.substring(0, 6);
 
-                // STRICT PHONE LOOP: Loop keeps running until customer enters a valid phone number
                 setTimeout(() => {
                     let userPhone = "";
                     let isFirstAttempt = true;
                     
                     while (true) {
-                        let msg = "✨ Welcome " + customerName + "!\nPlease enter your 10-digit Mobile Number for delivery updates:";
-                        if (!isFirstAttempt) {
-                            msg = "⚠️ Error: Mobile Number is Mandatory!\nPlease enter a valid 10-digit number (starting with 6-9) to proceed:";
-                        }
+                        let msg = "✨ Welcome " + customerName + "!\nPlease enter your 10-digit Mobile Number:";
+                        if (!isFirstAttempt) { msg = "⚠️ Error: Mobile Number is Mandatory!\nPlease enter valid 10-digit number:"; }
                         
                         userPhone = prompt(msg, "");
-                        
-                        // If canceled or empty or fails regex test, loop continues
                         if (userPhone !== null && userPhone.trim() !== "" && /^[6-9]\d{9}$/.test(userPhone.trim())) {
                             userPhone = userPhone.trim();
-                            break; // Valid data entered, break loop
+                            break;
                         }
-                        
                         isFirstAttempt = false;
                     }
-                    
-                    // Fire data directly to your Google Sheet!
                     sendDataToGoogleSheet(googleUniqueSubId, customerName, customerEmail, userPhone);
                 }, 500);
 
             } catch (error) {
                 console.error("Google Sync Error", error);
-                alert("⚠️ Google authentication fail ho gaya.");
             }
         }
 
-        // DYNAMIC GOOGLE SHEET AJAX ENGINE
         function sendDataToGoogleSheet(id, name, email, phone) {
             document.getElementById('loadingOverlay').style.display = 'flex';
-
-            const payload = {
-                customerId: id,
-                name: name,
-                email: email,
-                phone: phone
-            };
+            const payload = { customerId: id, name: name, email: email, phone: phone };
 
             fetch(GOOGLE_SHEET_API, {
                 method: "POST",
@@ -264,25 +365,24 @@
             })
             .then(() => {
                 document.getElementById('loadingOverlay').style.display = 'none';
-                commitUserSessionChannel(id, name, phone);
+                saveSessionData(id, name, phone, 'false');
             })
-            .catch(err => {
-                console.error("Sheet Sync Failed", err);
+            .catch(() => {
                 document.getElementById('loadingOverlay').style.display = 'none';
-                commitUserSessionChannel(id, name, phone);
+                saveSessionData(id, name, phone, 'false');
             });
         }
 
-        // GLOBAL SESSION AND ROUTING
-        function commitUserSessionChannel(customerId, name, phone) {
-            localStorage.setItem('isUserLoggedIn', 'true');
-            localStorage.setItem('currentCustomerId', customerId); 
-            localStorage.setItem('userMobileNumber', phone);
-            localStorage.setItem('customerName', name);
-            
-            alert("🎉 Access Granted! Data Saved into Damruwala Sheets.");
-            window.location.href = 'index.html';
+        // CONTINUE AS GUEST ACTION
+        function launchGuestSession() {
+            saveSessionData("GUEST_USER", "Guest", "", 'true');
         }
-    </script>
-</body>
-</html>
+
+        function saveSessionData(id, name, phone, guestStatus) {
+            localStorage.setItem('isUserLoggedIn', guestStatus === 'true' ? 'false' : 'true');
+            localStorage.setItem('isGuestMode', guestStatus);
+            localStorage.setItem('customerName', name);
+            localStorage.setItem('userMobileNumber', phone);
+            
+            checkCurrentSession();
+        }
