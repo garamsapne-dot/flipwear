@@ -3,84 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlipWear | Category Collections Hub</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <title>FlipWear | Category Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@800&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Roboto', sans-serif; }
         body { background-color: #f1f3f6; color: #212121; }
-
-        /* HEADER NAV */
-        .header-nav { background: #2874f0; padding: 12px 10%; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .logo-container { display: flex; flex-direction: column; text-decoration: none; }
-        .logo { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 800; color: #ffffff; font-style: italic; letter-spacing: 0.5px; }
+        .header-nav { background: #2874f0; padding: 12px 10%; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 1000; }
+        .logo { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 800; color: #ffffff; font-style: italic; text-decoration: none; }
         .logo span { color: #ffe500; }
-        
-        .nav-actions-row { display: flex; align-items: center; gap: 25px; }
         .action-link { color: #ffffff; text-decoration: none; font-weight: 700; font-size: 15px; }
-
-        /* BODY LAYOUT */
         .store-body-wrapper { max-width: 1240px; margin: 20px auto; padding: 0 15px; }
-        .page-navigation-tree { font-size: 13px; color: #878787; margin-bottom: 8px; }
-        .page-navigation-tree a { color: #2874f0; text-decoration: none; }
-        
-        .active-category-title-header { font-size: 22px; font-weight: 700; color: #212121; margin-bottom: 18px; text-transform: capitalize; background: #fff; padding: 15px; border-radius: 4px; border: 1px solid #e0e0e0; }
-
-        /* GRID SYSTEM WITH NO-ZOOM CONTAINERS */
+        .active-category-title-header { font-size: 22px; font-weight: 700; background: #fff; padding: 15px; border-radius: 4px; border: 1px solid #e0e0e0; margin-bottom: 18px; }
         .products-showcase-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; }
-        
-        /* Product Card */
-        .product-commercial-card { background: #ffffff; border: 1px solid #e0e0e0; border-radius: 4px; padding: 14px; cursor: pointer; transition: all 0.2s ease; display: flex; flex-direction: column; height: 380px; justify-content: space-between; }
+        .product-commercial-card { background: #ffffff; border: 1px solid #e0e0e0; border-radius: 4px; padding: 14px; cursor: pointer; display: flex; flex-direction: column; height: 380px; justify-content: space-between; }
         .product-commercial-card:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.12); border-color: #2874f0; }
-
-        /* Fixed Image Frame to stop over-zooming */
-        .product-image-container-frame { height: 210px; width: 100%; display: flex; align-items: center; justify-content: center; background: #ffffff; overflow: hidden; padding: 5px; margin-bottom: 8px; }
-        .product-image-container-frame img { max-width: 100%; max-height: 100%; object-fit: contain; width: auto; height: auto; }
-
-        .product-brand-title { font-size: 13px; font-weight: 700; color: #878787; text-transform: uppercase; margin-bottom: 3px; }
-        .product-item-fullname { font-size: 14px; font-weight: 400; color: #212121; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 6px; }
-        .rating-pill-badge { background: #388e3c; color: #ffffff; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 3px; display: inline-block; width: max-content; margin-bottom: 6px; }
-
-        .product-pricing-flex-row { display: flex; align-items: center; gap: 8px; margin-top: auto; }
-        .item-current-price { font-size: 16px; font-weight: 700; color: #212121; }
+        .product-image-container-frame { height: 210px; width: 100%; display: flex; align-items: center; justify-content: center; background: #ffffff; overflow: hidden; margin-bottom: 8px; }
+        .product-image-container-frame img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .product-brand-title { font-size: 13px; font-weight: 700; color: #878787; text-transform: uppercase; }
+        .product-item-fullname { font-size: 14px; color: #212121; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 6px; }
+        .product-pricing-flex-row { display: flex; align-items: center; gap: 8px; }
+        .item-current-price { font-size: 16px; font-weight: 700; }
         .item-original-slashed-price { font-size: 13px; color: #878787; text-decoration: line-through; }
         .item-active-discount-percentage { font-size: 13px; color: #388e3c; font-weight: 700; }
-        
-        .f-assured-tag-badge { height: 16px; margin-left: auto; }
-        .empty-store-notice-card { background: white; padding: 50px 20px; text-align: center; border-radius: 4px; border: 1px solid #e0e0e0; grid-column: 1 / -1; }
+        .empty-store-notice-card { background: white; padding: 50px; text-align: center; border-radius: 4px; grid-column: 1 / -1; }
     </style>
 </head>
 <body>
 
     <div class="header-nav">
-        <a href="homepage.html" class="logo-container">
-            <div class="logo">Flip<span>Wear</span></div>
-        </a>
-        <div class="nav-actions-row">
-            <a href="homepage.html" class="action-link">🏠 Home</a>
-            <a href="admin.html" class="action-link">⚙️ Admin Panel</a>
-        </div>
+        <a href="index.html" class="logo">Flip<span>Wear</span></a>
+        <a href="admin.html" class="action-link">⚙️ Admin Panel</a>
     </div>
 
     <div class="store-body-wrapper">
-        <div class="page-navigation-tree">
-            <a href="homepage.html">Home</a> &gt; <span id="breadcrumbCategoryPlaceholder">Category</span>
-        </div>
-        <div class="active-category-title-header" id="dynamicCategoryPageHeading">
-            Loading...
-        </div>
-
-        <div class="products-showcase-grid" id="masterCategoryProductsGridSlot">
-            </div>
+        <div class="active-category-title-header" id="dynamicCategoryPageHeading">Loading...</div>
+        <div class="products-showcase-grid" id="masterCategoryProductsGridSlot"></div>
     </div>
 
     <script>
-        // Default Hardcoded Stock List
         const masterProductsStockDatabase = [
-            { id: 'ts1', category: 'half_tshirt', brand: 'PUMA', name: 'Classic Half Baju Regular T-Shirt', price: 499, originalPrice: 999, discount: '50% off', rating: '4.2', image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=400&q=80' },
-            { id: 'ts2', category: 'down_shoulder', brand: 'OVERLAYS', name: 'Heavyweight Down-Shoulder Streetwear Tee', price: 699, originalPrice: 1499, discount: '53% off', rating: '4.5', image: 'https://images.unsplash.com/photo-1562157873-818bc0726f68?auto=format&fit=crop&w=400&q=80' },
-            { id: 'ts3', category: 'full_tshirt', brand: 'ADIDAS', name: 'Athletic Full Baju Cotton Longsleeve', price: 599, originalPrice: 1199, discount: '50% off', rating: '4.1', image: 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=400&q=80' },
-            { id: 'ts4', category: 'oversized_tshirt', brand: 'ROADSTER', name: 'Oversized Loose Fit Comfort T-Shirt', price: 399, originalPrice: 999, discount: '60% off', rating: '4.3', image: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=400&q=80' },
-            { id: 'jn1', category: 'baggy', brand: 'LEVIS', name: 'Premium Vintage Retro Baggy Jeans', price: 1299, originalPrice: 2999, discount: '56% off', rating: '4.6', image: 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=400&q=80' }
+            { id: 'ts1', category: 'half_tshirt', brand: 'PUMA', name: 'Classic Half Baju Regular T-Shirt', price: 499, originalPrice: 999, discount: '50% off', image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=400&q=80' },
+            { id: 'ts2', category: 'down_shoulder', brand: 'OVERLAYS', name: 'Heavyweight Down-Shoulder Streetwear Tee', price: 699, originalPrice: 1499, discount: '53% off', image: 'https://images.unsplash.com/photo-1562157873-818bc0726f68?auto=format&fit=crop&w=400&q=80' }
         ];
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -88,40 +51,30 @@
             const targetingTitle = localStorage.getItem('currentCategoryTitle') || 'Half Baju T-Shirt';
 
             document.getElementById('dynamicCategoryPageHeading').innerText = `Showing Results for: ${targetingTitle}`;
-            document.getElementById('breadcrumbCategoryPlaceholder').innerText = targetingTitle;
 
-            // Merge with Admin Custom Uploaded Items
             const adminCustomItems = JSON.parse(localStorage.getItem('myCustomStoreItems')) || [];
             const totalCombinedStock = [...masterProductsStockDatabase, ...adminCustomItems];
-
             const filteredArray = totalCombinedStock.filter(product => product.category === targetingKey);
             const UI_Container = document.getElementById('masterCategoryProductsGridSlot');
 
             if (filteredArray.length === 0) {
-                UI_Container.innerHTML = `<div class="empty-store-notice-card">🛍️ No items found in this category. Upload from Admin Panel!</div>`;
+                UI_Container.innerHTML = `<div class="empty-store-notice-card">🛍️ No items found in this category.</div>`;
                 return;
             }
 
-            // Render items with exact onclick function attached to card
             UI_Container.innerHTML = filteredArray.map(item => {
-                // Escaping text to prevent JSON parse strings breaking down
                 const safeTitle = item.name.replace(/'/g, "\\'");
                 const safeBrand = item.brand.replace(/'/g, "\\'");
-                
                 return `
                     <div class="product-commercial-card" onclick="openProductDetail('${item.id}', '${safeBrand}', '${safeTitle}', ${item.price}, ${item.originalPrice}, '${item.discount}', '${item.image}')">
-                        <div class="product-image-container-frame">
-                            <img src="${item.image}" alt="${item.name}">
-                        </div>
+                        <div class="product-image-container-frame"><img src="${item.image}"></div>
                         <div>
                             <div class="product-brand-title">${item.brand}</div>
                             <div class="product-item-fullname">${item.name}</div>
-                            <div class="rating-pill-badge">${item.rating} ★</div>
                             <div class="product-pricing-flex-row">
                                 <span class="item-current-price">₹${item.price}</span>
                                 <span class="item-original-slashed-price">₹${item.originalPrice}</span>
                                 <span class="item-active-discount-percentage">${item.discount}</span>
-                                <img class="f-assured-tag-badge" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0b-jUWe9j7bVj_q_iBbyYh88tF-QZp40o8A&s" alt="FA">
                             </div>
                         </div>
                     </div>
@@ -129,22 +82,9 @@
             }).join('');
         });
 
-        // 🔥 CLICK REDIRECT PIPELINE: It passes details into memory and opens Detail Page
         function openProductDetail(id, brand, name, price, originalPrice, discount, image) {
-            const productSpecs = {
-                id: id,
-                brand: brand,
-                name: name,
-                price: price,
-                originalPrice: originalPrice,
-                discount: discount,
-                image: image
-            };
-            
-            // Save currently clicked product details for the detail page to read
+            const productSpecs = { id, brand, name, price, originalPrice, discount, productImage: image };
             localStorage.setItem('selectedProductDetails', JSON.stringify(productSpecs));
-            
-            // Redirect straight to Product Detail Page
             window.location.href = 'product-detail.html';
         }
     </script>

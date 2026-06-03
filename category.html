@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Damruwala | Sub Categories</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background-color: #f1f3f6; color: #212121; max-width: 450px; margin: 0 auto; min-height: 100vh; padding-bottom: 90px; position: relative; }
+        
+        /* HEADER WITH SECURITY BACK CLICK */
+        .sub-header { background: #2874f0; padding: 14px 16px; color: white; display: flex; align-items: center; gap: 12px; position: sticky; top: 0; z-index: 1000; }
+        .back-btn { background: none; border: none; color: white; font-size: 20px; cursor: pointer; font-weight: bold; padding: 4px 8px; }
+        .page-title { font-size: 16px; font-weight: 600; text-transform: uppercase; }
+        
+        .section-headline { font-size: 13px; font-weight: 700; padding: 12px 16px 6px 16px; background: #ffffff; margin-top: 4px; color: #878787; text-transform: uppercase; }
+        
+        /* SUB CATEGORIES GRID */
+        .sub-categories-grid { background: #ffffff; padding: 12px 16px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; border-bottom: 1px solid #e0e0e0; }
+        .sub-cat-card { background: #f0f5ff; border: 1px solid #d2e3fc; border-radius: 8px; padding: 12px 8px; text-align: center; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px;}
+        .sub-cat-card.active { background: #2874f0; border-color: #2874f0; color: white; }
+        .sub-cat-card.active .sub-title { color: white; }
+        .sub-icon { font-size: 20px; }
+        .sub-title { font-size: 11px; font-weight: 600; color: #212121; }
+
+        /* PRODUCT MATRIX WITH ADD TO CART */
+        .store-container { padding: 8px; }
+        .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+        .product-card { background: #ffffff; border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; border: 1px solid #e0e0e0; }
+        .img-placeholder { height: 160px; background: #f9f9f9; display: flex; align-items: center; justify-content: center; font-size: 55px; }
+        .details-box { padding: 10px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .prod-name { font-size: 13px; font-weight: 500; color: #212121; line-height: 1.4; height: 36px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        .price-line { display: flex; align-items: center; gap: 5px; margin: 6px 0 10px 0; }
+        .price-now { font-size: 15px; font-weight: 700; }
+        .price-old { font-size: 11px; text-decoration: line-through; color: #878787; }
+        .btn-add-fk { width: 100%; background: #ffffff; color: #2874f0; border: 1px solid #e0e0e0; padding: 8px 0; font-size: 12px; font-weight: 700; border-radius: 4px; cursor: pointer; text-transform: uppercase; }
+        
+        .fk-cart-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 450px; background: #ffffff; box-shadow: 0 -3px 10px rgba(0,0,0,0.1); padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; display: none; border-top: 1px solid #e0e0e0;}
+        .btn-checkout-trigger { background: #fb641b; color: white; border: none; padding: 10px 24px; font-size: 13px; font-weight: 700; border-radius: 4px; text-transform: uppercase; }
+    </style>
+</head>
+<body>
+
+    <div class="sub-header">
+        <!-- Forcefully route to index.html bypass history -->
+        <button class="back-btn" onclick="forceBackToHome()">←</button>
+        <div class="page-title" id="categoryPageTitle">Category Store</div>
+    </div>
+
+    <div class="section-headline">Select Type (Sub-Category)</div>
+    <div class="sub-categories-grid" id="subCategoriesGridContainer"></div>
+
+    <div class="section-headline" id="productsPanelTitle">Loading Products...</div>
+    <div class="store-container">
+        <div class="products-grid" id="categoryProductsGrid"></div>
+    </div>
+
+    <div class="fk-cart-bar" id="bottomCartTriggerBar">
+        <div><span style="font-weight:700;" id="barCount">0 Items Selected</span></div>
+        <button class="btn-checkout-trigger" onclick="window.location.href='checkout.html'">Place Order 🛒</button>
+    </div>
+
+    <script>
+        const INVENTORY_DATABASE = [
+            { id: "JN_01", name: "Premium Light Blue Beggy Jeans", price: 699, originalPrice: 1199, category: "JEANS", subCategory: "Beggy jeans", emoji: "👖" },
+            { id: "JN_02", name: "Classic Dark Indigo Straight Fit Jeans", price: 799, originalPrice: 1399, category: "JEANS", subCategory: "streight Fit", emoji: "👖" },
+            { id: "JN_03", name: "Retro Style Charcoal Boot cut jeans", price: 849, originalPrice: 1499, category: "JEANS", subCategory: "Boot cut jeans", emoji: "👖" },
+            { id: "JN_04", name: "Super Stretch Comfort Fit Narrow Jeans", price: 599, originalPrice: 999, category: "JEANS", subCategory: "Narrow/Comfert fit jeans", emoji: "👖" },
+            { id: "FM_01", name: "Premium Slim Fit Khaki Cotton Pants", price: 549, originalPrice: 999, category: "Formals", subCategory: "Cotton pents", emoji: "💼" },
+            { id: "FM_02", name: "Luxury Black Smart Formal Pants", price: 599, originalPrice: 1099, category: "Formals", subCategory: "Formal pents", emoji: "💼" },
+            { id: "CG_01", name: "Heavy Cotton Multi-Pocket Cargo Pants", price: 699, originalPrice: 1299, category: "Cargo Pents", subCategory: "Standard Cargo", emoji: "📦" },
+            { id: "LW_01", name: "Super Soft Stretchable Sports Lower", price: 349, originalPrice: 599, category: "Lowers", subCategory: "Sports Lowers", emoji: "🏃" },
+            { id: "SH_01", name: "Pure White Premium Plain Shirt", price: 450, originalPrice: 799, category: "Shirts", subCategory: "Plain shirt", emoji: "👔" },
+            { id: "SH_02", name: "Vintage Red Checkered Casual Shirt", price: 499, originalPrice: 899, category: "Shirts", subCategory: "check shirt", emoji: "👔" },
+            { id: "TS_01", name: "Regular Fit Cotton Half Baju T-Shirt", price: 299, originalPrice: 499, category: "Tshirts", subCategory: "half baju shirt", emoji: "👕" }
+        ];
+
+        const SUB_CAT_MAP = {
+            "JEANS": ["Beggy jeans", "streight Fit", "Boot cut jeans", "Narrow/Comfert fit jeans"],
+            "Formals": ["Cotton pents", "Formal pents"],
+            "Cargo Pents": ["Standard Cargo"],
+            "Lowers": ["Sports Lowers"],
+            "Shirts": ["Plain shirt", "check shirt"],
+            "Tshirts": ["half baju shirt", "Down-shoulder tshirt"]
+        };
+
+        let currentMainCategory = "";
+        let currentSubCategory = "All";
+        let cartMemory = JSON.parse(localStorage.getItem('damruwala_cart')) || [];
+
+        // PHONE HARDWARE BACK BUTTON LOCK (HAMESHA INDEX.HTML PAR BHEJEGA)
+        function setupNavigationLocks() {
+            history.pushState(null, null, window.location.href);
+            window.addEventListener('popstate', function () {
+                window.location.replace('index.html');
+            });
+        }
+
+        function forceBackToHome() {
+            window.location.replace('index.html');
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            setupNavigationLocks();
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            currentMainCategory = urlParams.get('cat') || "JEANS";
+            
+            document.getElementById('categoryPageTitle').innerText = `${currentMainCategory} Collection`;
+            document.getElementById('productsPanelTitle').innerText = `🔥 All Mix ${currentMainCategory} Items`;
+
+            generateSubCategoryGrid();
+            renderFilteredProducts();
+            syncCartStatus();
+        });
+
+        function generateSubCategoryGrid() {
+            const container = document.getElementById('subCategoriesGridContainer');
+            const sublist = SUB_CAT_MAP[currentMainCategory] || [];
+            
+            container.innerHTML = `
+                <div class="sub-cat-card active" id="sub-all" onclick="filterBySubCat('All', this)">
+                    <span class="sub-icon">🌟</span>
+                    <span class="sub-title">All Mix</span>
+                </div>
+            `;
+
+            sublist.forEach(sub => {
+                container.innerHTML += `
+                    <div class="sub-cat-card" onclick="filterBySubCat('${sub}', this)">
+                        <span class="sub-icon">🛍️</span>
+                        <span class="sub-title">${sub}</span>
+                    </div>
+                `;
+            });
+        }
+
+        function filterBySubCat(subName, element) {
+            currentSubCategory = subName;
+            document.querySelectorAll('.sub-cat-card').forEach(card => card.classList.remove('active'));
+            element.classList.add('active');
+            
+            if(subName === 'All') {
+                document.getElementById('productsPanelTitle').innerText = `🔥 All Mix ${currentMainCategory} Items`;
+            } else {
+                document.getElementById('productsPanelTitle').innerText = `🔥 Best of ${subName}`;
+            }
+            renderFilteredProducts();
+        }
+
+        function renderFilteredProducts() {
+            const grid = document.getElementById('categoryProductsGrid');
+            grid.innerHTML = "";
+
+            let filteredList = INVENTORY_DATABASE.filter(p => p.category.toLowerCase() === currentMainCategory.toLowerCase());
+
+            if (currentSubCategory !== "All") {
+                filteredList = filteredList.filter(p => p.subCategory.toLowerCase() === currentSubCategory.toLowerCase());
+            }
+
+            if(filteredList.length === 0) {
+                grid.innerHTML = `<div style="grid-column: span 2; text-align:center; padding:40px; color:#878787;">SAD! Is Type Ka Stock jald aa raha hai.</div>`;
+                return;
+            }
+
+            filteredList.forEach(item => {
+                grid.innerHTML += `
+                    <div class="product-card">
+                        <div class="img-placeholder">${item.emoji}</div>
+                        <div class="details-box">
+                            <h3 class="prod-name">${item.name}</h3>
+                            <div class="price-line">
+                                <span class="price-now">₹${item.price}</span>
+                                <span class="price-old">₹${item.originalPrice}</span>
+                            </div>
+                            <button class="btn-add-fk" onclick="pushToCart('${item.id}')">Add To Cart</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function pushToCart(id) {
+            const product = INVENTORY_DATABASE.find(p => p.id === id);
+            if (!product) return;
+            const existing = cartMemory.find(c => c.id === id);
+            if (existing) existing.quantity += 1;
+            else cartMemory.push({ ...product, quantity: 1 });
+            localStorage.setItem('damruwala_cart', JSON.stringify(cartMemory));
+            syncCartStatus();
+        }
+
+        function syncCartStatus() {
+            const bar = document.getElementById('bottomCartTriggerBar');
+            if(cartMemory.length === 0) { bar.style.display = 'none'; return; }
+            document.getElementById('barCount').innerText = `${cartMemory.length} Item Selected`;
+            bar.style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
