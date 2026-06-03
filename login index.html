@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Damruwala | Secure Access</title>
+    <!-- PREMIUM APP FONTS COMBO -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:ital,wght@0,500;0,700;1,600;1,800&display=swap" rel="stylesheet">
+    
+    <!-- OFFICIAL GOOGLE AUTHENTICATION API SCRIPT -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    
+    <style>
+        /* CORE RE-SET & MOBILE SCREEN LOCK */
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        
+        body { 
+            background-color: #f1f3f6; 
+            color: #111111;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            max-width: 450px; 
+            margin: 0 auto;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+        }
+
+        /* FLIPKART STYLE GRADIENT HEADER */
+        .app-blue-header {
+            background: linear-gradient(180deg, #2874f0 0%, #1a62d6 100%);
+            padding: 40px 24px 60px 24px;
+            color: #ffffff;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            text-align: center;
+        }
+        .branding-wrapper { display: flex; flex-direction: column; align-items: center; }
+        .presents-badge { font-size: 11px; font-weight: 700; color: #d2e3fc; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 6px; }
+        .main-shop-title { font-family: 'Poppins', sans-serif; font-size: 36px; font-weight: 800; color: #ffffff; font-style: italic; letter-spacing: 0.5px; line-height: 1.1; }
+        .trending-tagline { font-family: 'Poppins', sans-serif; font-size: 14px; color: #ffe500; font-style: italic; font-weight: 600; margin-top: 6px; }
+
+        /* OVERLAPPING LOGIN INTERACTIVE CARD */
+        .main-login-card {
+            background: #ffffff;
+            margin: -35px 16px 16px 16px;
+            padding: 30px 20px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* NEW SHOP THEME GRAPHIC AND WELCOME AREA */
+        .shop-welcome-area {
+            text-align: center;
+            margin-bottom: 25px;
+            padding: 10px 0;
+        }
+        .shop-icon-badge {
+            background: #f0f5ff;
+            color: #2874f0;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 15px auto;
+            box-shadow: 0 4px 10px rgba(40, 116, 240, 0.1);
+        }
+        .form-heading { font-size: 20px; font-weight: 700; color: #212121; margin-bottom: 8px; }
+        .form-subheading { font-size: 13px; color: #666666; line-height: 1.5; padding: 0 10px; }
+
+        /* SHOPPING BENEFITS LIST */
+        .shop-features-list {
+            margin: 15px 0 25px 0;
+            background: #fafafa;
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px dashed #e0e0e0;
+        }
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            color: #444444;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+        .feature-item:last-child { margin-bottom: 0; }
+        .feature-icon { font-size: 16px; }
+
+        .social-divider { display: flex; align-items: center; text-align: center; color: #878787; font-size: 12px; margin: 20px 0; text-transform: uppercase; letter-spacing: 0.5px; }
+        .social-divider::before, .social-divider::after { content: ''; flex: 1; border-bottom: 1px dashed #e0e0e0; }
+        .social-divider:not(:empty)::before { margin-right: .8em; }
+        .social-divider:not(:empty)::after { margin-left: .8em; }
+
+        /* BUTTONS STACK CONTAINER */
+        .google-btn-container { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            width: 100%; 
+            gap: 14px; 
+        }
+        
+        /* PREMIUM GUEST BUTTON DESIGN */
+        .btn-guest-gate {
+            width: 100%;
+            max-width: 380px;
+            background: #ffffff;
+            color: #2874f0;
+            border: 1.5px solid #2874f0;
+            padding: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            border-radius: 4px;
+            cursor: pointer;
+            text-transform: uppercase;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(40,116,240,0.05);
+            transition: all 0.2s ease;
+        }
+        .btn-guest-gate:active { background: #f0f5ff; }
+
+        .legal-notice { font-size: 11px; color: #878787; text-align: center; line-height: 1.6; margin-top: 30px; }
+        .legal-notice a { color: #2874f0; text-decoration: none; }
+        .app-secure-footer { text-align: center; padding: 16px; font-size: 12px; font-weight: 500; color: #878787; background: #ffffff; border-top: 1px solid #e0e0e0; }
+
+        /* LOADING SPINNER */
+        .loading-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.8);
+            display: flex; justify-content: center; align-items: center; z-index: 1000; display: none;
+        }
+        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #2874f0; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <!-- SCREEN SAVER LOADER -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- BRAND TOP IDENTITY AREA -->
+    <div class="app-blue-header">
+        <div class="branding-wrapper">
+            <span class="presents-badge">Ma sheetla garments presents</span>
+            <h1 class="main-shop-title">Damruwala</h1>
+            <span class="trending-tagline">🔥 always trending</span>
+        </div>
+    </div>
+
+    <!-- MAIN CONTROL CENTER CARD -->
+    <div class="main-login-card">
+        <div>
+            <div class="shop-welcome-area">
+                <div class="shop-icon-badge">🛍️</div>
+                <h2 class="form-heading">Welcome to Damruwala Shop</h2>
+                <p class="form-subheading">Explore the latest trending outfits and premium collections curated by Ma Sheetla Garments.</p>
+            </div>
+
+            <div class="shop-features-list">
+                <div class="feature-item"><span class="feature-icon">✨</span><span>Exclusive Trending Clothes & Fabrics</span></div>
+                <div class="feature-item"><span class="feature-icon">🚚</span><span>Fast Delivery straight to your doorstep</span></div>
+                <div class="feature-item"><span class="feature-icon">🔒</span><span>100% Verified & Secure Single-Click Access</span></div>
+            </div>
+
+            <div class="social-divider">Secure Login Gate</div>
+        </div>
+
+        <div>
+            <div class="google-btn-container">
+                <div id="g_id_onload"
+                     data-client_id="953057548418-k5t0aghnuk81e9tnc2qm4eae4q0bt8kf.apps.googleusercontent.com"
+                     data-context="signin"
+                     data-ux_mode="popup"
+                     data-callback="handleGoogleResponse"
+                     data-auto_prompt="false">
+                </div>
+
+                <div class="g_id_signin"
+                     data-type="standard"
+                     data-shape="rectangular"
+                     data-theme="outline"
+                     data-text="continue_with"
+                     data-size="large"
+                     data-logo_alignment="left"
+                     data-width="380">
+                </div>
+
+                <!-- GUEST ACCESS BUTTON -->
+                <button class="btn-guest-gate" onclick="handleGuestAccessChannel()">Continue as a Guest 🌟</button>
+            </div>
+
+            <p class="legal-notice">
+                By continuing, you agree to Damruwala's <a href="#">Terms of Use</a> & <a href="#">Privacy Policy</a>.
+            </p>
+        </div>
+    </div>
+
+    <div class="app-secure-footer">
+        🛡️ Verified and Secured by Ma Sheetla Garments
+    </div>
+
+    <script>
+        const GOOGLE_SHEET_API = "https://script.google.com/macros/s/AKfycbyGeG25_0a7zTdqijaYypgA0WJTIWs0g93zHfjw25gq1oipLSIlPdfbm_asIWwQKPSYcA/exec";
+
+        function handleGoogleResponse(response) {
+            try {
+                const token = response.credential;
+                const base64Url = token.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+
+                const googleUser = JSON.parse(jsonPayload);
+                const customerEmail = googleUser.email; 
+                const customerName = googleUser.name;   
+                const googleUniqueSubId = "DAMRU_G_" + googleUser.sub.substring(0, 6);
+
+                setTimeout(() => {
+                    let userPhone = "";
+                    let isFirstAttempt = true;
+                    
+                    while (true) {
+                        let msg = "✨ Welcome " + customerName + "!\nPlease enter your 10-digit Mobile Number:";
+                        if (!isFirstAttempt) {
+                            msg = "⚠️ Error: Mobile Number is Mandatory!\nPlease enter valid 10-digit number:";
+                        }
+                        userPhone = prompt(msg, "");
+                        if (userPhone !== null && userPhone.trim() !== "" && /^[6-9]\d{9}$/.test(userPhone.trim())) {
+                            userPhone = userPhone.trim();
+                            break; 
+                        }
+                        isFirstAttempt = false;
+                    }
+                    sendDataToGoogleSheet(googleUniqueSubId, customerName, customerEmail, userPhone);
+                }, 500);
+
+            } catch (error) {
+                console.error("Google Sync Error", error);
+            }
+        }
+
+        function sendDataToGoogleSheet(id, name, email, phone) {
+            document.getElementById('loadingOverlay').style.display = 'flex';
+            const payload = { customerId: id, name: name, email: email, phone: phone };
+
+            fetch(GOOGLE_SHEET_API, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                document.getElementById('loadingOverlay').style.display = 'none';
+                commitUserSessionChannel(id, name, phone, 'false');
+            })
+            .catch(() => {
+                document.getElementById('loadingOverlay').style.display = 'none';
+                commitUserSessionChannel(id, name, phone, 'false');
+            });
+        }
+
+        // GUEST LOGIN LOGIC
+        function handleGuestAccessChannel() {
+            commitUserSessionChannel("DAMRU_GUEST", "Guest User", "", 'true');
+        }
+
+        function commitUserSessionChannel(customerId, name, phone, guestStatus) {
+            localStorage.setItem('isUserLoggedIn', guestStatus === 'true' ? 'false' : 'true');
+            localStorage.setItem('currentCustomerId', customerId); 
+            localStorage.setItem('userMobileNumber', phone);
+            localStorage.setItem('customerName', name);
+            localStorage.setItem('isGuestMode', guestStatus); 
+            
+            // FIXED REDIRECT NAME: matching your 'home index.html' file exactly
+            window.location.href = 'home index.html';
+        }
+    </script>
+</body>
+</html>

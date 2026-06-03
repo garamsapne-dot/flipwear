@@ -2,338 +2,286 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Damruwala | Flipkart Premium Store</title>
-    <link href="https://fonts.googleapis.com/css2 family=Inter:wght@400;500;600;700&family=Poppins:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Damruwala | Homepage</title>
+    <!-- PREMIUM FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:ital,wght@0,500;0,700;1,600;1,800&display=swap" rel="stylesheet">
     
     <style>
+        /* APP MULTI-PAGE STYLING */
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
         
         body { 
             background-color: #f1f3f6; 
-            color: #212121;
+            color: #111111;
             max-width: 450px; 
             margin: 0 auto;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            position: relative;
-            box-shadow: 0 0 20px rgba(0,0,0,0.05);
-            padding-bottom: 90px;
         }
 
-        /* HOMEPAGE SECURITY: BACK BUTTON LOCK (LOGIN SCREEN PAR JAANE SE ROKEGA) */
-        .fk-header {
-            background: #2874f0;
-            padding: 12px 16px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        .fk-top-line {
-            display: flex;
-            justify-content: space-between;
+        /* FLIPKART STYLE BLUE NAVBAR */
+        .dukaan-header {
+            background: linear-gradient(180deg, #2874f0 0%, #1a62d6 100%);
+            color: white; 
+            padding: 15px 20px; 
+            display: flex; 
+            justify-content: space-between; 
             align-items: center;
-            margin-bottom: 10px;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        .fk-brand h1 { font-family: 'Poppins', sans-serif; font-size: 20px; font-weight: 800; font-style: italic; color: #ffffff; line-height: 1; }
-        .fk-brand span { font-size: 10px; color: #ffe500; font-weight: 700; font-style: italic; text-transform: uppercase; margin-top: 2px; }
+        .dukaan-header h2 { font-family: 'Poppins', sans-serif; font-style: italic; font-size: 20px; }
         
-        /* CUSTOMER PROFILE SECTION */
-        .cx-profile-bar {
-            background: #ffffff;
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        .cx-avatar {
-            width: 40px;
-            height: 40px;
-            background: #ffe500;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            font-weight: bold;
-            color: #2874f0;
-        }
-        .cx-info h3 { font-size: 14px; font-weight: 600; color: #212121; }
-        .cx-info p { font-size: 11px; color: #878787; }
-
-        /* REAL-TIME SEARCH BAR */
-        .fk-search-wrapper {
-            position: relative;
-            background: #ffffff;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            padding: 0 12px;
-            height: 40px;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-        }
-        .fk-search-input {
-            width: 100%;
-            border: none;
-            outline: none;
-            font-size: 14px;
-            color: #212121;
-            padding-left: 8px;
-        }
-
-        /* PROMO BANNER */
-        .promo-banner {
-            background: linear-gradient(135deg, #fb641b 0%, #ff9900 100%);
-            margin: 8px;
-            border-radius: 6px;
-            padding: 14px;
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
             color: white;
-        }
-        .promo-banner h2 { font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 700; }
-        .promo-banner p { font-size: 12px; color: #ffe500; font-weight: 600; margin-top: 2px; }
-
-        /* CATEGORIES GRID */
-        .section-headline { font-size: 13px; font-weight: 700; padding: 12px 16px 6px 16px; background: #ffffff; margin-top: 4px; color: #878787; text-transform: uppercase; letter-spacing: 0.5px; }
-        
-        .categories-grid-box {
-            background: #ffffff;
-            padding: 12px 16px;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px 12px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        .cat-item { display: flex; flex-direction: column; align-items: center; cursor: pointer; text-align: center; }
-        .cat-circle { width: 54px; height: 54px; background: #f0f5ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 6px; border: 1px solid #d2e3fc; }
-        .cat-title { font-size: 11px; font-weight: 600; color: #212121; line-height: 1.2; }
-
-        /* PRODUCT TILES */
-        .store-container { padding: 8px; }
-        .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
-        .product-card { background: #ffffff; border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; border: 1px solid #e0e0e0; position: relative; }
-        .img-placeholder { height: 160px; background: #f9f9f9; display: flex; align-items: center; justify-content: center; font-size: 55px; border-bottom: 1px solid #f0f0f0; }
-        .details-box { padding: 10px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .prod-name { font-size: 13px; font-weight: 500; color: #212121; line-height: 1.4; height: 36px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; margin-bottom: 4px; }
-        
-        .price-line { display: flex; align-items: center; gap: 5px; margin-bottom: 10px; }
-        .price-now { font-size: 15px; font-weight: 700; color: #111111; }
-        .price-old { font-size: 11px; text-decoration: line-through; color: #878787; }
-        
-        .btn-add-fk {
-            width: 100%;
-            background: #ffffff;
-            color: #2874f0;
-            border: 1px solid #e0e0e0;
-            padding: 8px 0;
-            font-size: 12px;
-            font-weight: 700;
+            border: none;
+            padding: 6px 12px;
             border-radius: 4px;
+            font-weight: 600;
+            font-size: 12px;
             cursor: pointer;
+        }
+
+        /* STORE CONTENT CONTAINER */
+        .store-content {
+            padding: 20px 16px;
+            flex-grow: 1;
+        }
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #212121;
+        }
+
+        /* PRODUCT CARDS DESIGN */
+        .product-card {
+            background: white; 
+            border-radius: 8px; 
+            padding: 16px; 
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            border: 1px solid #e0e0e0;
+        }
+        .product-info h4 { font-size: 15px; color: #212121; margin-bottom: 4px; font-weight: 600; }
+        .product-info .price { color: #2874f0; font-weight: 700; font-size: 16px; }
+        
+        .btn-buy {
+            background: #fb641b; 
+            color: white; 
+            border: none; 
+            padding: 10px 20px; 
+            font-weight: 700; 
+            font-size: 13px;
+            border-radius: 4px; 
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(251,100,27,0.2);
             text-transform: uppercase;
         }
-        .btn-add-fk:active { background: #f0f5ff; }
+        .btn-buy:active { background: #e65916; }
 
-        /* ORDER HISTORY SECTION */
-        .order-history-box { background: #ffffff; padding: 12px 16px; margin-top: 4px; border-bottom: 1px solid #e0e0e0; }
-        .order-card { background: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 6px; padding: 10px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
-        .order-details h4 { font-size: 12px; font-weight: 600; color: #212121; }
-        .order-details p { font-size: 11px; color: #878787; margin-top: 2px; }
-        .order-status { font-size: 11px; font-weight: 700; color: #388e3c; background: #e8f5e9; padding: 4px 8px; border-radius: 4px; }
-
-        /* CART BOTTOM STRIP */
-        .fk-cart-bar {
-            position: fixed;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            max-width: 450px;
-            background: #ffffff;
-            box-shadow: 0 -3px 10px rgba(0,0,0,0.1);
-            padding: 12px 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            border-top: 1px solid #e0e0e0;
-            display: none;
+        /* LOADING OVERLAY SCREEN */
+        .loading-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.8);
+            display: flex; justify-content: center; align-items: center; z-index: 3000; display: none;
         }
-        .btn-checkout-trigger { background: #fb641b; color: white; border: none; padding: 10px 24px; font-size: 13px; font-weight: 700; border-radius: 4px; cursor: pointer; text-transform: uppercase; }
-        .whatsapp-float { position: fixed; bottom: 85px; right: 16px; background: #25d366; color: white; width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 999; text-decoration: none; }
+        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #2874f0; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* DYNAMIC POPUP MODAL (CHECKOUT FORM FOR GUESTS) */
+        .guest-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center;
+            z-index: 2000; display: none; padding: 16px;
+        }
+        .guest-modal-content {
+            background: white; padding: 24px 20px; border-radius: 16px; width: 100%; max-width: 380px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .modal-title { font-size: 18px; font-weight: 700; text-align: center; margin-bottom: 20px; color: #212121; }
+        
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-size: 12px; margin-bottom: 6px; font-weight: 600; color: #666; text-transform: uppercase; }
+        .form-group input { width: 100%; padding: 10px 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; outline: none; }
+        .form-group input:focus { border-color: #2874f0; }
+        
+        .btn-submit-order { width: 100%; background: #fb641b; color: white; border: none; padding: 12px; border-radius: 4px; font-weight: 700; font-size: 14px; cursor: pointer; text-transform: uppercase; margin-top: 10px; }
+        .btn-cancel-modal { width: 100%; background: none; border: none; margin-top: 12px; color: #878787; font-weight: 600; font-size: 13px; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <!-- FLIPKART STYLE HEADER -->
-    <div class="fk-header">
-        <div class="fk-top-line">
-            <div class="fk-brand">
-                <h1>Damruwala</h1>
-                <span>🔥 Always Trending | Ma Sheetla</span>
+    <!-- SCREEN SAVER LOADER -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- DUKAAN HEAD NAVIGATION BAR -->
+    <div class="dukaan-header">
+        <h2 id="welcomeUser">Damruwala Shop</h2>
+        <button class="logout-btn" onclick="logoutSession()">LOGOUT</button>
+    </div>
+
+    <!-- MAIN DUKAAN PRODUCTS SECTION -->
+    <div class="store-content">
+        <h3 class="section-title">🔥 Trending Collections</h3>
+
+        <!-- Product Item 1 -->
+        <div class="product-card">
+            <div class="product-info">
+                <h4>Premium Trendy Shirt</h4>
+                <p class="price">₹499</p>
             </div>
+            <button class="btn-buy" onclick="handleOrderPlacement()">Buy Now</button>
         </div>
-        <div class="fk-search-wrapper">
-            <span>🔍</span>
-            <input type="text" id="searchGate" class="fk-search-input" placeholder="Search jeans, shirts, cargo, lowers..." onkeyUp="triggerSearchFilter()">
-        </div>
-    </div>
 
-    <!-- CUSTOMER PROFILE INFO -->
-    <div class="cx-profile-bar">
-        <div class="cx-avatar">D</div>
-        <div class="cx-info">
-            <h3 id="cxName">Welcome, Customer</h3>
-            <p id="cxPhone">📞 Verified Premium Account</p>
-        </div>
-    </div>
-
-    <div class="promo-banner">
-        <h2>🔥 Fresh Arrivals This Week!</h2>
-        <p>Ma Sheetla Garments Special Flat 40% Off Storewide</p>
-    </div>
-
-    <!-- CATEGORIES -->
-    <div class="section-headline">Shop By Category</div>
-    <div class="categories-grid-box">
-        <div class="cat-item" onclick="openCategoryPage('JEANS')">
-            <div class="cat-circle">👖</div>
-            <span class="cat-title">JEANS</span>
-        </div>
-        <div class="cat-item" onclick="openCategoryPage('Formals')">
-            <div class="cat-circle">💼</div>
-            <span class="cat-title">Formals</span>
-        </div>
-        <div class="cat-item" onclick="openCategoryPage('Cargo Pents')">
-            <div class="cat-circle">📦</div>
-            <span class="cat-title">Cargo Pants</span>
-        </div>
-        <div class="cat-item" onclick="openCategoryPage('Lowers')">
-            <div class="cat-circle">🏃</div>
-            <span class="cat-title">Lowers</span>
-        </div>
-        <div class="cat-item" onclick="openCategoryPage('Shirts')">
-            <div class="cat-circle">👔</div>
-            <span class="cat-title">Shirts</span>
-        </div>
-        <div class="cat-item" onclick="openCategoryPage('Tshirts')">
-            <div class="cat-circle">👕</div>
-            <span class="cat-title">T-Shirts</span>
-        </div>
-    </div>
-
-    <!-- PRODUCTS SECTION WITH ADD TO CART -->
-    <div class="section-headline" id="storeSectionTitle">🔥 Mix Trending Products</div>
-    <div class="store-container">
-        <div class="products-grid" id="masterProductsGrid"></div>
-    </div>
-
-    <!-- RECENT ORDER HISTORY -->
-    <div class="section-headline">My Recent Orders</div>
-    <div class="order-history-box" id="orderHistoryContainer">
-        <div class="order-card">
-            <div class="order-details">
-                <h4>Order #DRW-8932</h4>
-                <p>Items: 1x Premium Light Blue Beggy Jeans</p>
-                <p style="font-weight: 500; color: #111;">Total: ₹699</p>
+        <!-- Product Item 2 -->
+        <div class="product-card">
+            <div class="product-info">
+                <h4>Stylish Baggy Jeans</h4>
+                <p class="price">₹699</p>
             </div>
-            <div class="order-status">Delivered 📦</div>
+            <button class="btn-buy" onclick="handleOrderPlacement()">Buy Now</button>
+        </div>
+        
+        <!-- Product Item 3 -->
+        <div class="product-card">
+            <div class="product-info">
+                <h4>Oversized Anime Hoodie</h4>
+                <p class="price">₹899</p>
+            </div>
+            <button class="btn-buy" onclick="handleOrderPlacement()">Buy Now</button>
         </div>
     </div>
 
-    <a href="https://wa.me/919999999999" class="whatsapp-float" target="_blank">💬</a>
+    <!-- MANDATORY CHECKOUT MODAL BOX FOR GUESTS -->
+    <div class="guest-modal" id="guestCheckoutModal">
+        <div class="guest-modal-content">
+            <h3 class="modal-title">Delivery Details 🚚</h3>
+            
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="custName" placeholder="Enter your full name">
+            </div>
+            <div class="form-group">
+                <label>Mobile Number</label>
+                <input type="tel" id="custPhone" placeholder="10-digit mobile number">
+            </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="custEmail" placeholder="Enter your email ID">
+            </div>
 
-    <!-- CART BOTTOM BAR -->
-    <div class="fk-cart-bar" id="bottomCartTriggerBar">
-        <div><span style="font-weight:700;" id="barCount">0 Items Selected</span></div>
-        <button class="btn-checkout-trigger" onclick="window.location.href='checkout.html'">Place Order 🛒</button>
+            <button class="btn-submit-order" onclick="submitGuestOrderData()">Confirm & Place Order</button>
+            <button class="btn-cancel-modal" onclick="closeCheckoutModal()">Cancel</button>
+        </div>
     </div>
 
+    <!-- CORE FUNCTIONAL SCRIPT BLOCK -->
     <script>
-        const INVENTORY_DATABASE = [
-            { id: "JN_01", name: "Premium Light Blue Beggy Jeans", price: 699, originalPrice: 1199, category: "JEANS", subCategory: "Beggy jeans", emoji: "👖" },
-            { id: "JN_02", name: "Classic Dark Indigo Straight Fit Jeans", price: 799, originalPrice: 1399, category: "JEANS", subCategory: "streight Fit", emoji: "👖" },
-            { id: "JN_03", name: "Retro Style Charcoal Boot cut jeans", price: 849, originalPrice: 1499, category: "JEANS", subCategory: "Boot cut jeans", emoji: "👖" },
-            { id: "JN_04", name: "Super Stretch Comfort Fit Narrow Jeans", price: 599, originalPrice: 999, category: "JEANS", subCategory: "Narrow/Comfert fit jeans", emoji: "👖" },
-            { id: "FM_01", name: "Premium Slim Fit Khaki Cotton Pants", price: 549, originalPrice: 999, category: "Formals", subCategory: "Cotton pents", emoji: "💼" },
-            { id: "FM_02", name: "Luxury Black Smart Formal Pants", price: 599, originalPrice: 1099, category: "Formals", subCategory: "Formal pents", emoji: "💼" },
-            { id: "CG_01", name: "Heavy Cotton Multi-Pocket Cargo Pants", price: 699, originalPrice: 1299, category: "Cargo Pents", subCategory: "Standard Cargo", emoji: "📦" },
-            { id: "LW_01", name: "Super Soft Stretchable Sports Lower", price: 349, originalPrice: 599, category: "Lowers", subCategory: "Sports Lowers", emoji: "🏃" },
-            { id: "SH_01", name: "Pure White Premium Plain Shirt", price: 450, originalPrice: 799, category: "Shirts", subCategory: "Plain shirt", emoji: "👔" },
-            { id: "SH_02", name: "Vintage Red Checkered Casual Shirt", price: 499, originalPrice: 899, category: "Shirts", subCategory: "check shirt", emoji: "👔" },
-            { id: "TS_01", name: "Regular Fit Cotton Half Baju T-Shirt", price: 299, originalPrice: 499, category: "Tshirts", subCategory: "half baju shirt", emoji: "👕" }
-        ];
+        // AAPKI WEB APP KI GOOGLE SHEET LIPI URL
+        const GOOGLE_SHEET_API = "https://script.google.com/macros/s/AKfycbyGeG25_0a7zTdqijaYypgA0WJTIWs0g93zHfjw25gq1oipLSIlPdfbm_asIWwQKPSYcA/exec";
 
-        let cartMemory = JSON.parse(localStorage.getItem('damruwala_cart')) || [];
-
-        // STRICT LOGIC: HOMEPAGE PAR LOGIN WAPAS NAHI KHULEGA (HISTORY BLOCKER)
+        // 1. STRICT GATEKEEPER SECURITY CHECK (Runs immediately when page loads)
         window.addEventListener('DOMContentLoaded', () => {
-            history.pushState(null, null, window.location.href);
-            window.addEventListener('popstate', function () {
-                history.pushState(null, null, window.location.href); // Lock state on homepage
-            });
+            const isLoggedIn = localStorage.getItem('isUserLoggedIn');
+            const isGuest = localStorage.getItem('isGuestMode');
 
-            // Load saved customer profile if exists
-            const savedProfile = JSON.parse(localStorage.getItem('damruwala_user'));
-            if(savedProfile) {
-                document.getElementById('cxName').innerText = savedProfile.name || "Premium Customer";
-                document.getElementById('cxPhone').innerText = "📞 " + (savedProfile.phone || "Verified Account");
+            // Agar na toh user logged in hai aur na hi guest mode active hai, toh bhej do login screen par
+            if (isLoggedIn !== 'true' && isGuest !== 'true') {
+                window.location.href = 'login index.html';
+                return;
             }
 
-            renderProducts(INVENTORY_DATABASE);
-            syncCartStatus();
+            // Welcome Text Change Karo Dashboard Par
+            if (isGuest === 'true') {
+                document.getElementById('welcomeUser').innerText = "Damruwala (Guest Mode) 🌟";
+            } else {
+                const name = localStorage.getItem('customerName') || "User";
+                document.getElementById('welcomeUser').innerText = "Hello, " + name + " 👋";
+            }
         });
 
-        function renderProducts(productsArray) {
-            const grid = document.getElementById('masterProductsGrid');
-            grid.innerHTML = "";
-            productsArray.forEach(item => {
-                grid.innerHTML += `
-                    <div class="product-card">
-                        <div class="img-placeholder">${item.emoji}</div>
-                        <div class="details-box">
-                            <h3 class="prod-name">${item.name}</h3>
-                            <div class="price-line">
-                                <span class="price-now">₹${item.price}</span>
-                                <span class="price-old">₹${item.originalPrice}</span>
-                            </div>
-                            <button class="btn-add-fk" onclick="pushToCart('${item.id}')">Add To Cart</button>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        function triggerSearchFilter() {
-            const cleanText = document.getElementById('searchGate').value.toLowerCase().trim();
-            if(cleanText.length > 0) {
-                const filtered = INVENTORY_DATABASE.filter(item => item.name.toLowerCase().includes(cleanText) || item.category.toLowerCase().includes(cleanText));
-                renderProducts(filtered);
+        // 2. BUY NOW ONCLICK HANDLE CONTROLLER
+        function handleOrderPlacement() {
+            const isGuest = localStorage.getItem('isGuestMode');
+            
+            if (isGuest === 'true') {
+                // Agar guest user hai, toh checkout form popup modal open karo
+                document.getElementById('guestCheckoutModal').style.display = 'flex';
             } else {
-                renderProducts(INVENTORY_DATABASE);
+                // Agar pehle se Google Se Logged In hai, toh direct successful message
+                alert("🎉 Order Placed Successfully!\nThank you for shopping with Damruwala.");
             }
         }
 
-        function openCategoryPage(catName) {
-            window.location.href = `category.html?cat=${encodeURIComponent(catName)}`;
+        // 3. GUEST FORM VALIDATION AND SPREADSHEET DISPATCH
+        function submitGuestOrderData() {
+            const name = document.getElementById('custName').value.trim();
+            const phone = document.getElementById('custPhone').value.trim();
+            const email = document.getElementById('custEmail').value.trim();
+
+            // Form Validation Rules
+            if (!name) { alert("⚠️ Please enter your Name."); return; }
+            if (!phone || !/^[6-9]\d{9}$/.test(phone)) { alert("⚠️ Please enter a valid 10-digit mobile number."); return; }
+            if (!email || !email.includes('@')) { alert("⚠️ Please enter a valid Email ID."); return; }
+
+            // Show Loading Spinner
+            document.getElementById('loadingOverlay').style.display = 'flex';
+
+            // Prepare Payload for Google Sheets
+            const payload = { 
+                customerId: "DAMRU_GUEST_ORDER", 
+                name: name, 
+                email: email, 
+                phone: phone 
+            };
+            
+            fetch(GOOGLE_SHEET_API, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                document.getElementById('loadingOverlay').style.display = 'none';
+                document.getElementById('guestCheckoutModal').style.display = 'none';
+                
+                // Guest ko permanent system status data de do taaki bar-bar form na mangey
+                localStorage.setItem('isGuestMode', 'false');
+                localStorage.setItem('isUserLoggedIn', 'true');
+                localStorage.setItem('customerName', name);
+                localStorage.setItem('userMobileNumber', phone);
+
+                alert("🎉 Success!\nYour delivery details are saved and order is placed successfully.");
+                
+                // Header refresh text updates
+                document.getElementById('welcomeUser').innerText = "Hello, " + name + " 👋";
+            })
+            .catch((err) => {
+                console.error("Sheet Connection Error", err);
+                document.getElementById('loadingOverlay').style.display = 'none';
+                alert("⚠️ Kuch technical issue ke karan details save nahi ho payi, kripya dobara koshish karein.");
+            });
         }
 
-        function pushToCart(id) {
-            const product = INVENTORY_DATABASE.find(p => p.id === id);
-            if (!product) return;
-            const existing = cartMemory.find(c => c.id === id);
-            if (existing) existing.quantity += 1;
-            else cartMemory.push({ ...product, quantity: 1 });
-            localStorage.setItem('damruwala_cart', JSON.stringify(cartMemory));
-            syncCartStatus();
+        // CLOSE MODAL AND LOGOUT FUNCTIONS
+        function closeCheckoutModal() { 
+            document.getElementById('guestCheckoutModal').style.display = 'none'; 
         }
 
-        function syncCartStatus() {
-            const bar = document.getElementById('bottomCartTriggerBar');
-            if(cartMemory.length === 0) { bar.style.display = 'none'; return; }
-            document.getElementById('barCount').innerText = `${cartMemory.length} Item Selected`;
-            bar.style.display = 'flex';
+        function logoutSession() { 
+            localStorage.clear(); 
+            window.location.href = 'login index.html'; 
         }
     </script>
 </body>
